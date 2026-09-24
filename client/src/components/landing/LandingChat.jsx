@@ -110,7 +110,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         position: 'relative',
         minHeight: '100vh',
         width: '100%',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'transparent',
         color: '#0F172A',
         display: 'flex',
         flexDirection: 'column',
@@ -127,10 +127,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           position: 'sticky',
           top: 0,
           zIndex: 40,
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.75)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.07)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.45)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.6)',
           padding: '14px 24px',
         }}
       >
@@ -803,10 +803,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           left: 0,
           right: 0,
           zIndex: 50,
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.45)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.6)',
           padding: '16px 20px',
         }}
       >

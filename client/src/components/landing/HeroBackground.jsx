@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 // --- Exact Shader Code from HeroGeometric ---
@@ -128,6 +128,8 @@ function sanitizeHexColor(value, fallback) {
 
 const GradientPlane = ({ color1, color2, speed = 1 }) => {
   const meshRef = useRef(null);
+  const { viewport } = useThree();
+
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -147,13 +149,13 @@ const GradientPlane = ({ color1, color2, speed = 1 }) => {
   });
 
   return (
-    <mesh ref={meshRef} scale={[2, 2, 1]}>
-      <planeGeometry args={[2, 2]} />
+    <mesh ref={meshRef} scale={[viewport.width * 1.05, viewport.height * 1.05, 1]}>
+      <planeGeometry args={[1, 1]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
-        transparent={true}
+        transparent={false}
         depthWrite={false}
         depthTest={false}
       />
@@ -184,9 +186,10 @@ export default function HeroBackground({
       <div
         className={`hero-bg-canvas ${className}`}
         style={{
-          position: "absolute",
+          position: "fixed",
           inset: 0,
           background: "radial-gradient(circle at 50% 30%, #F0F9FF 0%, #FFFFFF 80%)",
+          zIndex: 0,
         }}
       />
     );
@@ -196,11 +199,11 @@ export default function HeroBackground({
     <div
       className={`hero-bg-canvas ${className}`}
       style={{
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
         overflow: "hidden",
@@ -211,9 +214,9 @@ export default function HeroBackground({
         dpr={[1, 1]}
         gl={{
           antialias: false,
-          alpha: true,
+          alpha: false,
         }}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", display: "block" }}
       >
         <GradientPlane color1={color1} color2={color2} speed={speed} />
       </Canvas>
