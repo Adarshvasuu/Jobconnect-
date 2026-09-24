@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useChatOnboarding } from '../../hooks/useChatOnboarding';
 import { USER_ROLES } from '../../utils/constants';
+import HeroBackground from './HeroBackground';
 
 export const LandingChat = ({ onNavigateToShowcase }) => {
   const navigate = useNavigate();
@@ -108,45 +109,34 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
       style={{
         position: 'relative',
         minHeight: '100vh',
-        background: 'radial-gradient(circle at 50% 0%, #1e1b4b 0%, #09090b 60%, #050507 100%)',
-        color: '#f4f4f5',
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        color: '#0F172A',
         display: 'flex',
         flexDirection: 'column',
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         overflowX: 'hidden',
       }}
     >
-      {/* Background Ambient Radial Glow */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '5%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '700px',
-          height: '450px',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 75%)',
-          filter: 'blur(80px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
+      {/* 1. Exact WebGL Hero Shader Plane Background */}
+      <HeroBackground color1="#3B82F6" color2="#F0F9FF" speed={0.9} />
 
-      {/* Top Header Bar */}
+      {/* 2. Top Header Bar */}
       <header
         style={{
           position: 'sticky',
           top: 0,
           zIndex: 40,
-          backdropFilter: 'blur(16px)',
-          backgroundColor: 'rgba(9, 9, 11, 0.75)',
-          borderBottom: '1px solid rgba(39, 39, 42, 0.8)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.75)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.07)',
           padding: '14px 24px',
         }}
       >
         <div
           style={{
-            maxWidth: '820px',
+            maxWidth: '840px',
             margin: '0 auto',
             display: 'flex',
             alignItems: 'center',
@@ -161,25 +151,25 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               alignItems: 'center',
               gap: '10px',
               textDecoration: 'none',
-              color: '#ffffff',
+              color: '#0F172A',
             }}
           >
             <div
               style={{
-                width: '32px',
-                height: '32px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #6366f1 0%, #3b82f6 100%)',
+                background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 16px rgba(99, 102, 241, 0.4)',
+                boxShadow: '0 4px 12px rgba(59, 130, 246, 0.35)',
               }}
             >
-              <Briefcase size={17} color="#ffffff" />
+              <Briefcase size={18} color="#FFFFFF" />
             </div>
-            <span style={{ fontSize: '1.1rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
-              Job<span style={{ color: '#818cf8' }}>Connect</span>
+            <span style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#0F172A' }}>
+              Job<span style={{ color: '#2563EB' }}>Connect</span>
             </span>
           </Link>
 
@@ -189,48 +179,50 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '5px 12px',
+              padding: '6px 14px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(24, 24, 27, 0.8)',
-              border: '1px solid rgba(63, 63, 70, 0.5)',
-              fontSize: '0.8rem',
-              color: '#a1a1aa',
+              backgroundColor: 'rgba(255, 255, 255, 0.85)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
+              fontSize: '0.82rem',
+              fontWeight: 600,
+              color: '#1E40AF',
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.06)',
             }}
           >
             <span
               style={{
-                width: '7px',
-                height: '7px',
+                width: '8px',
+                height: '8px',
                 borderRadius: '50%',
-                backgroundColor: '#10b981',
-                boxShadow: '0 0 8px #10b981',
+                backgroundColor: '#10B981',
+                boxShadow: '0 0 8px #10B981',
               }}
             />
             <span>AI Onboarding Flow</span>
           </div>
 
-          {/* Actions */}
+          {/* Action Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {onNavigateToShowcase && (
               <button
                 onClick={onNavigateToShowcase}
                 style={{
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  border: '1px solid rgba(59, 130, 246, 0.35)',
-                  color: '#93c5fd',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  border: '1px solid rgba(59, 130, 246, 0.25)',
+                  color: '#2563EB',
                   fontSize: '0.82rem',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '5px',
-                  padding: '5px 12px',
+                  padding: '6px 14px',
                   borderRadius: '9999px',
                   transition: 'all 0.2s',
                 }}
               >
-                <Sparkles size={13} />
-                <span>WebGL Showcase</span>
+                <Sparkles size={14} />
+                <span>3D Showcase</span>
               </button>
             )}
 
@@ -240,33 +232,36 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#71717a',
+                color: '#64748B',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
-                fontSize: '0.8rem',
-                padding: '4px 8px',
-                borderRadius: '6px',
+                fontSize: '0.82rem',
+                fontWeight: 600,
+                padding: '6px 10px',
+                borderRadius: '8px',
                 transition: 'color 0.2s',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#e4e4e7')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#71717a')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#0F172A')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
             >
               <RefreshCw size={13} />
               <span>Reset</span>
             </button>
+
             <Link
               to="/login"
               style={{
                 fontSize: '0.85rem',
-                fontWeight: 500,
-                color: '#d4d4d8',
+                fontWeight: 600,
+                color: '#0F172A',
                 textDecoration: 'none',
-                padding: '6px 14px',
+                padding: '6px 16px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(39, 39, 42, 0.6)',
-                border: '1px solid rgba(63, 63, 70, 0.5)',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -276,56 +271,60 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         </div>
       </header>
 
-      {/* Main Conversational Canvas */}
+      {/* 3. Main Conversational Canvas */}
       <main
         style={{
+          position: 'relative',
           flex: 1,
-          maxWidth: '720px',
+          maxWidth: '740px',
           width: '100%',
           margin: '0 auto',
-          padding: '40px 20px 140px',
+          padding: '36px 20px 140px',
           display: 'flex',
           flexDirection: 'column',
           zIndex: 10,
         }}
       >
         {/* Subtle Greeting Heading */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '4px 12px',
+              padding: '6px 16px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(99, 102, 241, 0.12)',
-              border: '1px solid rgba(99, 102, 241, 0.25)',
-              color: '#c7d2fe',
-              fontSize: '0.8rem',
-              fontWeight: 600,
+              backgroundColor: 'rgba(255, 255, 255, 0.85)',
+              border: '1px solid rgba(59, 130, 246, 0.25)',
+              color: '#1E40AF',
+              fontSize: '0.82rem',
+              fontWeight: 700,
               marginBottom: '12px',
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)',
+              backdropFilter: 'blur(8px)',
             }}
           >
-            <Sparkles size={13} /> Intelligent Conversational Matchmaker
+            <Sparkles size={14} color="#2563EB" /> Conversational Matchmaker
           </div>
+
           <h1
             style={{
-              fontSize: '2rem',
-              fontWeight: 800,
+              fontSize: '2.4rem',
+              fontWeight: 900,
               letterSpacing: '-0.03em',
-              color: '#ffffff',
+              color: '#0F172A',
               margin: '0 0 8px',
             }}
           >
             Connect without friction.
           </h1>
-          <p style={{ fontSize: '0.95rem', color: '#a1a1aa', margin: 0 }}>
+          <p style={{ fontSize: '1.05rem', color: '#475569', margin: 0, fontWeight: 500 }}>
             Experience an AI-driven, streamlined onboarding tailored directly to your goals.
           </p>
         </div>
 
         {/* Message Stream */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <AnimatePresence>
             {messages.map((msg) => (
               <motion.div
@@ -340,7 +339,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                   width: '100%',
                 }}
               >
-                {/* Bot / User Row */}
+                {/* Bot / User Message Row */}
                 <div
                   style={{
                     display: 'flex',
@@ -353,67 +352,73 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                   {msg.sender === 'bot' && (
                     <div
                       style={{
-                        width: '32px',
-                        height: '32px',
+                        width: '34px',
+                        height: '34px',
                         borderRadius: '10px',
-                        backgroundColor: '#18181b',
-                        border: '1px solid #27272a',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#818cf8',
+                        color: '#2563EB',
                         flexShrink: 0,
                         marginTop: '2px',
                       }}
                     >
-                      <Bot size={17} />
+                      <Bot size={18} />
                     </div>
                   )}
 
                   {/* Message Bubble Card */}
                   <div
                     style={{
-                      padding: msg.type === 'credentials_card' || msg.type === 'completion_state' ? '20px' : '14px 18px',
-                      borderRadius: msg.sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                      padding: msg.type === 'credentials_card' || msg.type === 'completion_state' ? '22px' : '15px 20px',
+                      borderRadius: msg.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
                       backgroundColor:
                         msg.sender === 'user'
-                          ? '#4f46e5'
-                          : msg.type === 'credentials_card' || msg.type === 'completion_state'
-                          ? '#121215'
-                          : '#18181b',
-                      border: msg.sender === 'user' ? 'none' : '1px solid #27272a',
-                      boxShadow: msg.sender === 'user' ? '0 4px 14px rgba(79, 70, 229, 0.3)' : '0 4px 20px rgba(0, 0, 0, 0.3)',
-                      color: msg.sender === 'user' ? '#ffffff' : '#f4f4f5',
-                      fontSize: '0.95rem',
-                      lineHeight: 1.55,
+                          ? '#2563EB'
+                          : 'rgba(255, 255, 255, 0.92)',
+                      backdropFilter: msg.sender === 'user' ? 'none' : 'blur(20px)',
+                      WebkitBackdropFilter: msg.sender === 'user' ? 'none' : 'blur(20px)',
+                      border: msg.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.9)',
+                      boxShadow:
+                        msg.sender === 'user'
+                          ? '0 6px 20px rgba(37, 99, 235, 0.35)'
+                          : '0 10px 30px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0,0,0,0.04)',
+                      color: msg.sender === 'user' ? '#FFFFFF' : '#0F172A',
+                      fontSize: '0.98rem',
+                      fontWeight: 500,
+                      lineHeight: 1.6,
                       width: msg.type === 'credentials_card' || msg.type === 'completion_state' ? '100%' : 'auto',
                     }}
                   >
                     <div>{msg.text}</div>
 
-                    {/* Step 1: Branch Selection Pills */}
+                    {/* Step 1: Branch Selection Cards */}
                     {msg.type === 'branch_select' && step === 0 && (
                       <div
                         style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                          gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
                           gap: '12px',
                           marginTop: '16px',
                         }}
                       >
                         <motion.button
-                          whileHover={{ scale: 1.02, backgroundColor: 'rgba(99, 102, 241, 0.15)', borderColor: '#6366f1' }}
+                          whileHover={{ scale: 1.02, backgroundColor: '#FFFFFF', borderColor: '#3B82F6' }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => selectBranch(USER_ROLES.SEEKER)}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            padding: '14px 16px',
-                            borderRadius: '12px',
-                            backgroundColor: 'rgba(39, 39, 42, 0.7)',
-                            border: '1px solid #3f3f46',
-                            color: '#ffffff',
+                            padding: '16px',
+                            borderRadius: '14px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                            border: '1px solid rgba(226, 232, 240, 0.9)',
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                            color: '#0F172A',
                             cursor: 'pointer',
                             textAlign: 'left',
                             transition: 'all 0.2s ease',
@@ -421,38 +426,39 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                         >
                           <div
                             style={{
-                              width: '36px',
-                              height: '36px',
-                              borderRadius: '8px',
-                              backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '10px',
+                              backgroundColor: 'rgba(59, 130, 246, 0.12)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              color: '#a5b4fc',
+                              color: '#2563EB',
                               flexShrink: 0,
                             }}
                           >
-                            <Briefcase size={18} />
+                            <Briefcase size={20} />
                           </div>
                           <div>
-                            <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>I'm looking for a job</div>
-                            <div style={{ fontSize: '0.75rem', color: '#a1a1aa' }}>Explore verified roles & apply</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>I'm looking for a job</div>
+                            <div style={{ fontSize: '0.78rem', color: '#64748B' }}>Explore verified roles & apply</div>
                           </div>
                         </motion.button>
 
                         <motion.button
-                          whileHover={{ scale: 1.02, backgroundColor: 'rgba(59, 130, 246, 0.15)', borderColor: '#3b82f6' }}
+                          whileHover={{ scale: 1.02, backgroundColor: '#FFFFFF', borderColor: '#2563EB' }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => selectBranch(USER_ROLES.RECRUITER)}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            padding: '14px 16px',
-                            borderRadius: '12px',
-                            backgroundColor: 'rgba(39, 39, 42, 0.7)',
-                            border: '1px solid #3f3f46',
-                            color: '#ffffff',
+                            padding: '16px',
+                            borderRadius: '14px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                            border: '1px solid rgba(226, 232, 240, 0.9)',
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                            color: '#0F172A',
                             cursor: 'pointer',
                             textAlign: 'left',
                             transition: 'all 0.2s ease',
@@ -460,22 +466,22 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                         >
                           <div
                             style={{
-                              width: '36px',
-                              height: '36px',
-                              borderRadius: '8px',
-                              backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '10px',
+                              backgroundColor: 'rgba(37, 99, 235, 0.12)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              color: '#93c5fd',
+                              color: '#1D4ED8',
                               flexShrink: 0,
                             }}
                           >
-                            <Building2 size={18} />
+                            <Building2 size={20} />
                           </div>
                           <div>
-                            <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>I'm looking to hire</div>
-                            <div style={{ fontSize: '0.75rem', color: '#a1a1aa' }}>Post jobs & discover candidates</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>I'm looking to hire</div>
+                            <div style={{ fontSize: '0.78rem', color: '#64748B' }}>Post jobs & discover talent</div>
                           </div>
                         </motion.button>
                       </div>
@@ -494,17 +500,18 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                         {msg.pills?.map((pill) => (
                           <motion.button
                             key={pill.id}
-                            whileHover={{ scale: 1.03, borderColor: '#818cf8', backgroundColor: 'rgba(99, 102, 241, 0.2)' }}
+                            whileHover={{ scale: 1.03, borderColor: '#2563EB', backgroundColor: '#EFF6FF' }}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => selectPill(pill)}
                             style={{
-                              padding: '8px 16px',
+                              padding: '10px 18px',
                               borderRadius: '9999px',
-                              backgroundColor: 'rgba(39, 39, 42, 0.8)',
-                              border: '1px solid #3f3f46',
-                              color: '#e4e4e7',
-                              fontSize: '0.85rem',
-                              fontWeight: 500,
+                              backgroundColor: '#FFFFFF',
+                              border: '1px solid #CBD5E1',
+                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
+                              color: '#0F172A',
+                              fontSize: '0.88rem',
+                              fontWeight: 600,
                               cursor: 'pointer',
                               display: 'flex',
                               alignItems: 'center',
@@ -512,7 +519,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             }}
                           >
                             <span>{pill.label}</span>
-                            <ChevronRight size={13} color="#818cf8" />
+                            <ChevronRight size={14} color="#2563EB" />
                           </motion.button>
                         ))}
                       </div>
@@ -532,12 +539,13 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                         {credError && (
                           <div
                             style={{
-                              padding: '8px 12px',
-                              borderRadius: '8px',
-                              backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                              padding: '10px 14px',
+                              borderRadius: '10px',
+                              backgroundColor: 'rgba(239, 68, 68, 0.1)',
                               border: '1px solid rgba(239, 68, 68, 0.3)',
-                              color: '#fca5a5',
-                              fontSize: '0.82rem',
+                              color: '#DC2626',
+                              fontSize: '0.85rem',
+                              fontWeight: 600,
                             }}
                           >
                             {credError}
@@ -550,8 +558,8 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             style={{
                               display: 'block',
                               fontSize: '0.78rem',
-                              fontWeight: 600,
-                              color: '#a1a1aa',
+                              fontWeight: 700,
+                              color: '#475569',
                               marginBottom: '6px',
                               textTransform: 'uppercase',
                               letterSpacing: '0.04em',
@@ -563,13 +571,14 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             style={{
                               display: 'flex',
                               alignItems: 'center',
-                              backgroundColor: '#09090b',
-                              border: '1px solid #27272a',
-                              borderRadius: '10px',
-                              padding: '0 12px',
+                              backgroundColor: '#FFFFFF',
+                              border: '1px solid #CBD5E1',
+                              borderRadius: '12px',
+                              padding: '0 14px',
+                              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.04)',
                             }}
                           >
-                            <Mail size={16} color="#71717a" />
+                            <Mail size={16} color="#64748B" />
                             <input
                               type="email"
                               value={credEmail}
@@ -581,9 +590,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                                 background: 'transparent',
                                 border: 'none',
                                 outline: 'none',
-                                color: '#ffffff',
+                                color: '#0F172A',
                                 padding: '12px 10px',
-                                fontSize: '0.9rem',
+                                fontSize: '0.92rem',
+                                fontWeight: 500,
                               }}
                             />
                           </div>
@@ -595,8 +605,8 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             style={{
                               display: 'block',
                               fontSize: '0.78rem',
-                              fontWeight: 600,
-                              color: '#a1a1aa',
+                              fontWeight: 700,
+                              color: '#475569',
                               marginBottom: '6px',
                               textTransform: 'uppercase',
                               letterSpacing: '0.04em',
@@ -608,13 +618,14 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             style={{
                               display: 'flex',
                               alignItems: 'center',
-                              backgroundColor: '#09090b',
-                              border: '1px solid #27272a',
-                              borderRadius: '10px',
-                              padding: '0 12px',
+                              backgroundColor: '#FFFFFF',
+                              border: '1px solid #CBD5E1',
+                              borderRadius: '12px',
+                              padding: '0 14px',
+                              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.04)',
                             }}
                           >
-                            <Lock size={16} color="#71717a" />
+                            <Lock size={16} color="#64748B" />
                             <input
                               type={showPassword ? 'text' : 'password'}
                               value={credPassword}
@@ -626,9 +637,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                                 background: 'transparent',
                                 border: 'none',
                                 outline: 'none',
-                                color: '#ffffff',
+                                color: '#0F172A',
                                 padding: '12px 10px',
-                                fontSize: '0.9rem',
+                                fontSize: '0.92rem',
+                                fontWeight: 500,
                               }}
                             />
                             <button
@@ -637,7 +649,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                color: '#71717a',
+                                color: '#64748B',
                                 cursor: 'pointer',
                                 padding: 0,
                               }}
@@ -653,21 +665,12 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                           disabled={isSubmitting}
                           whileHover={{ scale: 1.01 }}
                           whileTap={{ scale: 0.99 }}
+                          className="metallic-btn metallic-btn-primary"
                           style={{
+                            width: '100%',
+                            padding: '13px 20px',
                             marginTop: '6px',
-                            padding: '12px 20px',
-                            borderRadius: '10px',
-                            backgroundColor: '#4f46e5',
-                            border: 'none',
-                            color: '#ffffff',
-                            fontWeight: 600,
-                            fontSize: '0.9rem',
-                            cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
+                            fontSize: '0.95rem',
                           }}
                         >
                           {isSubmitting ? (
@@ -694,51 +697,42 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '10px',
-                            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                            padding: '16px',
-                            borderRadius: '12px',
-                            border: '1px solid #27272a',
+                            backgroundColor: 'rgba(239, 246, 255, 0.7)',
+                            padding: '18px',
+                            borderRadius: '14px',
+                            border: '1px solid rgba(59, 130, 246, 0.25)',
                             marginBottom: '16px',
                           }}
                         >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#10b981', fontSize: '0.88rem' }}>
-                            <CheckCircle2 size={16} />
-                            <span style={{ color: '#e4e4e7' }}>Verified account created for <strong>{formData.name}</strong></span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#059669', fontSize: '0.9rem', fontWeight: 600 }}>
+                            <CheckCircle2 size={18} />
+                            <span style={{ color: '#0F172A' }}>Verified account created for <strong>{formData.name}</strong></span>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#10b981', fontSize: '0.88rem' }}>
-                            <CheckCircle2 size={16} />
-                            <span style={{ color: '#e4e4e7' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#059669', fontSize: '0.9rem', fontWeight: 600 }}>
+                            <CheckCircle2 size={18} />
+                            <span style={{ color: '#0F172A' }}>
                               {userType === USER_ROLES.RECRUITER
                                 ? `Recruiter workspace configured for ${formData.company || 'your organization'}`
                                 : `Target role set to ${formData.targetRole || 'Full Stack'}`}
                             </span>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#10b981', fontSize: '0.88rem' }}>
-                            <CheckCircle2 size={16} />
-                            <span style={{ color: '#e4e4e7' }}>Personalized dashboard workspace initialized</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#059669', fontSize: '0.9rem', fontWeight: 600 }}>
+                            <CheckCircle2 size={18} />
+                            <span style={{ color: '#0F172A' }}>Personalized dashboard workspace initialized</span>
                           </div>
                         </div>
 
-                        {/* Direct CTA */}
+                        {/* Direct Dashboard Launch CTA */}
                         <motion.button
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={navigateToDashboard}
+                          className="metallic-btn metallic-btn-primary"
                           style={{
                             width: '100%',
-                            padding: '14px 24px',
-                            borderRadius: '12px',
-                            background: 'linear-gradient(135deg, #4f46e5 0%, #2563eb 100%)',
-                            border: 'none',
-                            color: '#ffffff',
-                            fontWeight: 700,
-                            fontSize: '0.95rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            boxShadow: '0 8px 24px rgba(79, 70, 229, 0.45)',
+                            padding: '15px 24px',
+                            fontSize: '1rem',
+                            fontWeight: 800,
                           }}
                         >
                           <span>Enter Your Dashboard</span>
@@ -765,25 +759,26 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             >
               <div
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '34px',
+                  height: '34px',
                   borderRadius: '10px',
-                  backgroundColor: '#18181b',
-                  border: '1px solid #27272a',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#818cf8',
+                  color: '#2563EB',
                 }}
               >
-                <Bot size={17} />
+                <Bot size={18} />
               </div>
               <div
                 style={{
                   padding: '12px 18px',
-                  borderRadius: '18px 18px 18px 4px',
-                  backgroundColor: '#18181b',
-                  border: '1px solid #27272a',
+                  borderRadius: '20px 20px 20px 4px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                  border: '1px solid rgba(255, 255, 255, 0.9)',
+                  boxShadow: '0 4px 14px rgba(15, 23, 42, 0.06)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -800,7 +795,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         </div>
       </main>
 
-      {/* Anchored Bottom Input Bar */}
+      {/* 4. Anchored Bottom Input Bar */}
       <footer
         style={{
           position: 'fixed',
@@ -809,14 +804,15 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           right: 0,
           zIndex: 50,
           backdropFilter: 'blur(20px)',
-          backgroundColor: 'rgba(9, 9, 11, 0.85)',
-          borderTop: '1px solid rgba(39, 39, 42, 0.8)',
+          WebkitBackdropFilter: 'blur(20px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          borderTop: '1px solid rgba(0, 0, 0, 0.08)',
           padding: '16px 20px',
         }}
       >
         <div
           style={{
-            maxWidth: '720px',
+            maxWidth: '740px',
             margin: '0 auto',
             width: '100%',
           }}
@@ -826,11 +822,11 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              backgroundColor: '#18181b',
-              border: '1px solid #27272a',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #CBD5E1',
               borderRadius: '16px',
-              padding: '6px 8px 6px 16px',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
+              padding: '6px 8px 6px 18px',
+              boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
               transition: 'border-color 0.2s, box-shadow 0.2s',
             }}
           >
@@ -846,9 +842,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
-                color: '#ffffff',
+                color: '#0F172A',
                 fontSize: '0.95rem',
-                padding: '6px 0',
+                fontWeight: 500,
+                padding: '8px 0',
                 cursor: step === 0 || step >= 4 ? 'not-allowed' : 'text',
               }}
             />
@@ -857,12 +854,12 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               type="submit"
               disabled={!inputVal.trim() || step === 0 || step >= 4 || isTyping || isSubmitting}
               style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '10px',
-                backgroundColor: inputVal.trim() && step > 0 && step < 4 ? '#4f46e5' : 'rgba(39, 39, 42, 0.6)',
+                width: '40px',
+                height: '40px',
+                borderRadius: '12px',
+                backgroundColor: inputVal.trim() && step > 0 && step < 4 ? '#2563EB' : 'rgba(226, 232, 240, 0.8)',
                 border: 'none',
-                color: inputVal.trim() && step > 0 && step < 4 ? '#ffffff' : '#71717a',
+                color: inputVal.trim() && step > 0 && step < 4 ? '#FFFFFF' : '#94A3B8',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -880,8 +877,9 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             style={{
               textAlign: 'center',
               marginTop: '8px',
-              fontSize: '0.73rem',
-              color: '#71717a',
+              fontSize: '0.75rem',
+              color: '#64748B',
+              fontWeight: 500,
             }}
           >
             Press <strong>Enter ↵</strong> to submit • Real-time AI recruitment matchmaker
@@ -895,7 +893,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background-color: #818cf8;
+          background-color: #2563EB;
           display: inline-block;
           animation: pulse 1.2s infinite ease-in-out;
         }
