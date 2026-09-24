@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 export function Signature({
   text = "JobConnect",
-  color = "#3B82F6",
-  fontSize = 64,
-  delay = 0.2,
-  duration = 1.4,
+  color = "#1D4ED8",
+  fontSize = 58,
+  delay = 0.1,
+  duration = 1.2,
   className = "",
 }) {
   return (
@@ -15,42 +15,43 @@ export function Signature({
       className={`signature-container ${className}`}
       style={{
         display: "inline-flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
       }}
     >
-      <motion.svg
-        width={Math.max(300, fontSize * 5)}
-        height={fontSize * 1.5}
-        viewBox="0 0 400 100"
-        fill="none"
-        initial="hidden"
-        animate="visible"
-        style={{ overflow: "visible" }}
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay, duration: 0.6, ease: "easeOut" }}
+        style={{
+          fontFamily: "'Outfit', 'Inter', -apple-system, sans-serif",
+          fontSize: `${fontSize}px`,
+          fontWeight: 900,
+          letterSpacing: "-0.03em",
+          color: "#0F172A",
+          lineHeight: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          userSelect: "none",
+        }}
       >
-        {/* Animated Brand Typography */}
-        <motion.text
-          x="50%"
-          y="62"
-          textAnchor="middle"
-          fill={color}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: delay + 0.1, duration: 0.8, ease: "easeOut" }}
-          style={{
-            fontFamily: "'Outfit', 'Inter', -apple-system, sans-serif",
-            fontSize: "56px",
-            fontWeight: "900",
-            letterSpacing: "-0.03em",
-          }}
-        >
-          Job<tspan fill="#1D4ED8">Connect</tspan>
-        </motion.text>
+        <span>Job</span>
+        <span style={{ color: "#2563EB" }}>Connect</span>
+      </motion.div>
 
-        {/* Dynamic Cursive Flourish Stroke Underline */}
+      {/* Animated Flourish Underline */}
+      <svg
+        width={Math.min(320, fontSize * 5)}
+        height="24"
+        viewBox="0 0 320 24"
+        fill="none"
+        style={{ overflow: "visible", marginTop: "2px" }}
+      >
         <motion.path
-          d="M 60 78 Q 200 95, 340 76"
+          d="M 20 16 Q 160 26, 300 12"
           stroke="#3B82F6"
           strokeWidth="4"
           strokeLinecap="round"
@@ -58,13 +59,14 @@ export function Signature({
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
-            pathLength: { delay: delay + 0.4, duration: 1.0, ease: "easeInOut" },
-            opacity: { delay: delay + 0.4, duration: 0.2 },
+            pathLength: { delay: delay + 0.25, duration: 0.9, ease: "easeInOut" },
+            opacity: { delay: delay + 0.25, duration: 0.2 },
           }}
         />
-      </motion.svg>
+      </svg>
     </div>
   );
 }
 
 export default Signature;
+

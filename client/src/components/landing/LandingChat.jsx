@@ -86,12 +86,8 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
     submitCredentials({ email: credEmail, password: credPassword });
   };
 
-  const navigateToDashboard = () => {
-    if (userType === USER_ROLES.RECRUITER) {
-      navigate('/recruiter/dashboard');
-    } else {
-      navigate('/seeker/dashboard');
-    }
+  const navigateToMenu = () => {
+    navigate('/home');
   };
 
   // Dynamic input placeholder
@@ -728,11 +724,11 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                           </div>
                         </div>
 
-                        {/* Direct Dashboard Launch CTA */}
+                        {/* Direct Main Menu Launch CTA */}
                         <motion.button
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          onClick={navigateToDashboard}
+                          onClick={navigateToMenu}
                           className="metallic-btn metallic-btn-primary"
                           style={{
                             width: '100%',
@@ -741,7 +737,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             fontWeight: 800,
                           }}
                         >
-                          <span>Enter Your Dashboard</span>
+                          <span>Go to Menu</span>
                           <ArrowRight size={18} />
                         </motion.button>
                       </div>

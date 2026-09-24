@@ -51,6 +51,7 @@ export const AppRoutes = () => {
       {/* ======================== Public & Core Navigation Routes ======================== */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<DashboardDispatcher />} />
+      <Route path="/menu" element={<DashboardDispatcher />} />
       <Route path="/dashboard" element={<DashboardDispatcher />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
