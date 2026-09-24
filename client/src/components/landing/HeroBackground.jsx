@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // --- Exact Shader Code from HeroGeometric ---
@@ -7,7 +7,7 @@ const vertexShader = `
 varying vec2 vUv;
 void main() {
   vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  gl_Position = vec4(position.xy, 0.0, 1.0);
 }
 `;
 
@@ -126,14 +126,13 @@ function sanitizeHexColor(value, fallback) {
   return trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
 }
 
-const GradientPlane = ({ color1, color2, speed = 1 }) => {
+const FullscreenShaderPlane = ({ color1, color2, speed = 1 }) => {
   const meshRef = useRef(null);
-  const { viewport } = useThree();
 
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uResolution: { value: new THREE.Vector2(1000, 1000) },
+      uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
       uColor1: { value: new THREE.Color(HERO_GEOMETRIC_FALLBACK_COLOR_1) },
       uColor2: { value: new THREE.Color(HERO_GEOMETRIC_FALLBACK_COLOR_2) },
     }),
@@ -149,13 +148,13 @@ const GradientPlane = ({ color1, color2, speed = 1 }) => {
   });
 
   return (
-    <mesh ref={meshRef} scale={[viewport.width * 1.05, viewport.height * 1.05, 1]}>
-      <planeGeometry args={[1, 1]} />
+    <mesh ref={meshRef}>
+      {/* Plane covering the full [-1, 1] NDC space */}
+      <planeGeometry args={[2, 2]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
-        transparent={false}
         depthWrite={false}
         depthTest={false}
       />
@@ -187,7 +186,10 @@ export default function HeroBackground({
         className={`hero-bg-canvas ${className}`}
         style={{
           position: "fixed",
-          inset: 0,
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
           background: "radial-gradient(circle at 50% 30%, #F0F9FF 0%, #FFFFFF 80%)",
           zIndex: 0,
         }}
@@ -202,23 +204,35 @@ export default function HeroBackground({
         position: "fixed",
         top: 0,
         left: 0,
+        right: 0,
+        bottom: 0,
         width: "100vw",
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
         overflow: "hidden",
+        margin: 0,
+        padding: 0,
       }}
     >
       <Canvas
-        camera={{ position: [0, 0, 1] }}
+        orthographic
+        camera={{ position: [0, 0, 1], left: -1, right: 1, top: 1, bottom: -1, near: 0.1, far: 10 }}
         dpr={[1, 1]}
         gl={{
           antialias: false,
           alpha: false,
         }}
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "block",
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
       >
-        <GradientPlane color1={color1} color2={color2} speed={speed} />
+        <FullscreenShaderPlane color1={color1} color2={color2} speed={speed} />
       </Canvas>
     </div>
   );

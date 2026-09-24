@@ -121,17 +121,14 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
       {/* 1. Exact WebGL Hero Shader Plane Background */}
       <HeroBackground color1="#3B82F6" color2="#F0F9FF" speed={0.9} />
 
-      {/* 2. Top Header Bar */}
+      {/* 2. Top Floating Header Bar */}
       <header
         style={{
           position: 'sticky',
           top: 0,
           zIndex: 40,
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.45)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.6)',
-          padding: '14px 24px',
+          backgroundColor: 'transparent',
+          padding: '18px 24px',
         }}
       >
         <div
@@ -141,6 +138,13 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            padding: '8px 16px',
+            borderRadius: '9999px',
+            backgroundColor: 'rgba(255, 255, 255, 0.75)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.9)',
+            boxShadow: '0 4px 20px rgba(15, 23, 42, 0.05)',
           }}
         >
           {/* Brand Logo */}
@@ -795,7 +799,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         </div>
       </main>
 
-      {/* 4. Anchored Bottom Input Bar */}
+      {/* 4. Floating Bottom Input Bar */}
       <footer
         style={{
           position: 'fixed',
@@ -803,11 +807,9 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           left: 0,
           right: 0,
           zIndex: 50,
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.45)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.6)',
-          padding: '16px 20px',
+          backgroundColor: 'transparent',
+          padding: '0 20px 20px',
+          pointerEvents: 'none',
         }}
       >
         <div
@@ -815,6 +817,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             maxWidth: '740px',
             margin: '0 auto',
             width: '100%',
+            pointerEvents: 'auto',
           }}
         >
           <form
@@ -822,11 +825,13 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #CBD5E1',
-              borderRadius: '16px',
-              padding: '6px 8px 6px 18px',
-              boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
+              backgroundColor: 'rgba(255, 255, 255, 0.92)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.9)',
+              borderRadius: '20px',
+              padding: '8px 10px 8px 20px',
+              boxShadow: '0 12px 36px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(0,0,0,0.04)',
               transition: 'border-color 0.2s, box-shadow 0.2s',
             }}
           >

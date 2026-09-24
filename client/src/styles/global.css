@@ -24,19 +24,9 @@ html, body {
   flex-direction: column;
 }
 
-/* Background subtle ambient glow */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 20%;
-  width: 60vw;
-  height: 500px;
-  background: var(--gradient-glow);
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(100px);
-  opacity: 0.8;
+/* Background styling */
+body {
+  background-color: #F0F9FF;
 }
 
 /* Typography styles */
