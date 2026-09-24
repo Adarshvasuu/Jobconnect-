@@ -22,7 +22,7 @@ export const LandingPage = () => {
   }
 
   return (
-    <div className="page-wrapper" style={{ backgroundColor: '#FFFFFF' }}>
+    <div className="page-wrapper" style={{ backgroundColor: 'transparent' }}>
       <Navbar />
 
       {/* Floating button to switch back to Chat Onboarding */}
@@ -44,7 +44,7 @@ export const LandingPage = () => {
       <ScrollSplitCards />
 
       {/* 3. Featured Positions Section */}
-      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
+      <section style={{ padding: '80px 0', backgroundColor: 'transparent' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px' }}>
             <div>

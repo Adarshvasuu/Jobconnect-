@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { USER_ROLES } from '../utils/constants';
+import { useAuthContext } from '../context/AuthContext';
+import ProtectedRoute from '../components/common/ProtectedRoute';
 
 // Auth Pages
 import LandingPage from '../pages/LandingPage';
@@ -27,16 +29,27 @@ import JobPostingPage from '../pages/JobPostingPage';
 // 404
 import NotFoundPage from '../pages/NotFoundPage';
 
-// Route Guard
-import ProtectedRoute from '../components/common/ProtectedRoute';
+// Smart Dashboard Dispatcher that renders the correct role dashboard without blank screens
+const DashboardDispatcher = () => {
+  const { role, user } = useAuthContext();
+  const activeRole = user?.role || role || USER_ROLES.SEEKER;
+  
+  if (activeRole === USER_ROLES.RECRUITER) {
+    return <RecruiterDashboard />;
+  }
+  if (activeRole === USER_ROLES.ADMIN) {
+    return <AdminDashboard />;
+  }
+  return <SeekerDashboard />;
+};
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* ======================== Public Routes ======================== */}
+      {/* ======================== Public & Core Navigation Routes ======================== */}
       <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<SeekerDashboard />} />
-      <Route path="/dashboard" element={<SeekerDashboard />} />
+      <Route path="/home" element={<DashboardDispatcher />} />
+      <Route path="/dashboard" element={<DashboardDispatcher />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
 
@@ -59,14 +72,7 @@ export const AppRoutes = () => {
       />
 
       {/* ======================== Seeker Routes ======================== */}
-      <Route
-        path="/seeker/dashboard"
-        element={
-          <ProtectedRoute allowedRoles={[USER_ROLES.SEEKER]}>
-            <SeekerDashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/seeker/dashboard" element={<SeekerDashboard />} />
       <Route
         path="/seeker/jobs"
         element={

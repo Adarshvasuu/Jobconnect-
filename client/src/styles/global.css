@@ -8,7 +8,8 @@
 
 html, body {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: transparent !important;
+  background: transparent !important;
   color: var(--text-primary);
   font-family: var(--font-main);
   font-size: 15px;
@@ -22,11 +23,13 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: transparent !important;
 }
 
-/* Background styling */
+/* Ensure background transparency for Three.js WebGL Canvas */
 body {
-  background-color: #F0F9FF;
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
 /* Typography styles */
