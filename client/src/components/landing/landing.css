@@ -1,0 +1,377 @@
+/* landing.css - JobConnect Hero Geometric & Scroll Split Redesign Styles */
+
+/* ==========================================================================
+   Hero Section & WebGL Background
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-surface, #FFFFFF);
+}
+
+.hero-sticky-wrap {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  max-width: 840px;
+  padding: 0 1.5rem;
+  will-change: transform, opacity;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: var(--color-primary, #3B82F6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+}
+
+.hero-signature-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.hero-subtext {
+  font-size: 1.2rem;
+  color: var(--color-muted, #525252);
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.hero-scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--color-muted, #71717A);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.scroll-arrow {
+  animation: bounceDown 1.8s infinite ease-in-out;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ==========================================================================
+   Metallic Buttons
+   ========================================================================== */
+.metallic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.85rem 2.2rem;
+  border-radius: 9999px;
+  font-family: var(--font-main, inherit);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink, #18181B);
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 50%, #CBD5E1 100%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 14px rgba(15, 23, 42, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.metallic-btn:hover {
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(59, 130, 246, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.metallic-btn-primary {
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  border: 1px solid rgba(147, 197, 253, 0.6);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+.metallic-btn-primary:hover {
+  border-color: rgba(191, 219, 254, 0.9);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    0 10px 28px rgba(59, 130, 246, 0.45);
+}
+
+.metallic-btn-sheen {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: left 0.6s ease;
+}
+
+.metallic-btn:hover .metallic-btn-sheen {
+  left: 140%;
+}
+
+.metallic-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Scroll Split Cards 3D Interaction
+   ========================================================================== */
+.split-scroll-container {
+  position: relative;
+  height: 500vh;
+  width: 100%;
+  background: var(--color-surface, #FFFFFF);
+}
+
+.split-scroll-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1400px;
+  padding: 2rem 1.5rem;
+}
+
+.split-scroll-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  z-index: 10;
+}
+
+.split-scroll-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-primary, #3B82F6);
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.split-scroll-heading {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-ink, #18181B);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.split-scroll-subheading {
+  font-size: 1rem;
+  color: var(--color-muted, #525252);
+  margin: 0;
+}
+
+.split-scroll-row {
+  display: flex;
+  height: 420px;
+  width: 100%;
+  max-width: 68rem;
+  padding: 0 1rem;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.split-card-slot {
+  position: relative;
+  height: 100%;
+  flex: 1;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.split-card-front,
+.split-card-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.split-card-image {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 300%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+.split-card-front-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  color: #FFFFFF;
+}
+
+.split-card-front-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+  margin-bottom: 0.35rem;
+}
+
+.split-card-front-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.split-card-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.2rem;
+  box-sizing: border-box;
+}
+
+.split-card-icon-wrap {
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.split-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.split-card-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.split-card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.split-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.split-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.split-card-cta:hover {
+  transform: translateX(4px);
+  opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+  .split-scroll-row {
+    height: 360px;
+  }
+  .split-card-back {
+    padding: 1.5rem;
+  }
+  .split-card-title {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,9 @@
+/* theme.css - JobConnect Core Theme Tokens */
+:root {
+  --color-primary: #3B82F6;
+  --color-primary-pale: #F0F9FF;
+  --color-ink: #18181B;
+  --color-muted: #525252;
+  --color-surface: #FFFFFF;
+  --color-border: rgba(0, 0, 0, 0.08);
+}
