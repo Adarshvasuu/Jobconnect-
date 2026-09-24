@@ -1,4 +1,4 @@
-// HeroBackground.jsx — plain React WebGL shader canvas, no "use client", no Next.js imports
+// HeroBackground.jsx — High-contrast, crystal-clear WebGL gradient shader
 import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -46,42 +46,24 @@ float snoise(vec2 v){
   return 130.0 * dot(m, g);
 }
 
-float bayerDither4x4(vec2 uv) {
-    int x = int(mod(uv.x, 4.0));
-    int y = int(mod(uv.y, 4.0));
-    int matrix[16];
-    matrix[0] = 0; matrix[1] = 8; matrix[2] = 2; matrix[3] = 10;
-    matrix[4] = 12; matrix[5] = 4; matrix[6] = 14; matrix[7] = 6;
-    matrix[8] = 3; matrix[9] = 11; matrix[10] = 1; matrix[11] = 9;
-    matrix[12] = 15; matrix[13] = 7; matrix[14] = 13; matrix[15] = 5;
-    return float(matrix[y * 4 + x]) / 16.0;
-}
-
 void main() {
     vec2 uv = vUv;
-    vec2 coord = gl_FragCoord.xy;
-    float noise = snoise(uv * 1.5 + vec2(uTime * 0.05, uTime * 0.03)) * 0.25;
+    float noise = snoise(uv * 1.8 + vec2(uTime * 0.04, uTime * 0.02)) * 0.2;
     float diagonal = (uv.x + uv.y) * 0.5;
-    float gradient = diagonal * 1.2 + noise;
-    vec3 deepBlue = uColor1;
-    vec3 paleBlue = uColor2;
-    vec3 softBlue = mix(deepBlue, paleBlue, 0.33);
-    vec3 lightBlue = mix(deepBlue, paleBlue, 0.66);
-    vec3 color;
-    if (gradient < 0.3) { color = deepBlue; }
-    else if (gradient < 0.55) { color = softBlue; }
-    else if (gradient < 0.8) { color = lightBlue; }
-    else { color = paleBlue; }
-    float dither = bayerDither4x4(coord);
-    float threshold = fract(gradient * 4.0);
-    if (gradient < 0.3 && threshold > dither * 0.5) { color = softBlue; }
-    else if (gradient >= 0.3 && gradient < 0.55 && threshold > dither * 0.5) { color = lightBlue; }
-    else if (gradient >= 0.55 && gradient < 0.8 && threshold > dither * 0.5) { color = paleBlue; }
-    vec2 cornerDist = vec2(uv.x, uv.y);
-    float fadeMask = smoothstep(0.0, 0.25, length(cornerDist));
-    color = mix(vec3(1.0), color, fadeMask);
-    float vignette = smoothstep(1.2, 0.3, length(uv - 0.5));
-    color = mix(color, color * 0.95, (1.0 - vignette) * 0.3);
+    float gradient = clamp(diagonal + noise, 0.0, 1.0);
+    
+    // Soft, luminous pale blue to ambient white gradient
+    vec3 accentBlue = uColor1; // #60A5FA
+    vec3 paleBlue = uColor2;   // #EFF6FF
+    vec3 white = vec3(1.0, 1.0, 1.0);
+
+    vec3 color = mix(white, paleBlue, smoothstep(0.0, 0.6, gradient));
+    color = mix(color, accentBlue, smoothstep(0.6, 1.2, gradient) * 0.35);
+
+    // Subtle soft vignette
+    float vignette = smoothstep(1.3, 0.4, length(uv - 0.5));
+    color = mix(color, color * 0.98, (1.0 - vignette) * 0.2);
+
     gl_FragColor = vec4(color, 1.0);
 }
 `;
@@ -116,7 +98,7 @@ function GradientPlane({ color1, color2, speed = 1 }) {
   );
 }
 
-export default function HeroBackground({ color1 = "#3B82F6", color2 = "#F0F9FF", speed = 1 }) {
+export default function HeroBackground({ color1 = "#60A5FA", color2 = "#EFF6FF", speed = 0.8 }) {
   const [hasWebGL, setHasWebGL] = useState(true);
 
   useEffect(() => {
@@ -134,7 +116,7 @@ export default function HeroBackground({ color1 = "#3B82F6", color2 = "#F0F9FF",
       <div
         className="hero-bg-canvas"
         style={{
-          background: `radial-gradient(circle at 50% 30%, ${color2} 0%, #FFFFFF 70%)`,
+          background: 'radial-gradient(circle at 50% 30%, #EFF6FF 0%, #FFFFFF 80%)',
         }}
       />
     );
@@ -142,7 +124,7 @@ export default function HeroBackground({ color1 = "#3B82F6", color2 = "#F0F9FF",
 
   return (
     <div className="hero-bg-canvas">
-      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1]} gl={{ antialias: false, alpha: true }}>
+      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1]} gl={{ antialias: true, alpha: true }}>
         <GradientPlane color1={color1} color2={color2} speed={speed} />
       </Canvas>
     </div>

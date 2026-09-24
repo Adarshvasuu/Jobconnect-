@@ -21,7 +21,7 @@ import {
 import { useChatOnboarding } from '../../hooks/useChatOnboarding';
 import { USER_ROLES } from '../../utils/constants';
 
-export const LandingChat = () => {
+export const LandingChat = ({ onNavigateToShowcase }) => {
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -209,8 +209,31 @@ export const LandingChat = () => {
             <span>AI Onboarding Flow</span>
           </div>
 
-          {/* Auth Switcher */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Actions */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {onNavigateToShowcase && (
+              <button
+                onClick={onNavigateToShowcase}
+                style={{
+                  background: 'rgba(59, 130, 246, 0.15)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
+                  color: '#93c5fd',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  padding: '5px 12px',
+                  borderRadius: '9999px',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <Sparkles size={13} />
+                <span>WebGL Showcase</span>
+              </button>
+            )}
+
             <button
               onClick={resetChat}
               title="Restart Conversation"
@@ -245,14 +268,6 @@ export const LandingChat = () => {
                 backgroundColor: 'rgba(39, 39, 42, 0.6)',
                 border: '1px solid rgba(63, 63, 70, 0.5)',
                 transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(63, 63, 70, 0.8)';
-                e.currentTarget.style.color = '#ffffff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(39, 39, 42, 0.6)';
-                e.currentTarget.style.color = '#d4d4d8';
               }}
             >
               Sign In
