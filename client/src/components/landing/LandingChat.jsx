@@ -16,7 +16,8 @@ import {
   EyeOff,
   ShieldCheck,
   ChevronRight,
-  Bot
+  Bot,
+  FileText
 } from 'lucide-react';
 import { useChatOnboarding } from '../../hooks/useChatOnboarding';
 import { USER_ROLES } from '../../utils/constants';
