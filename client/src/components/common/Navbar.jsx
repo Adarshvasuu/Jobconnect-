@@ -82,19 +82,19 @@ export const Navbar = () => {
               {role === USER_ROLES.SEEKER && (
                 <>
                   <Link
-                    to="/seeker/dashboard"
+                    to="/home"
                     style={{
                       padding: '7px 16px',
                       borderRadius: '9999px',
                       fontSize: '0.88rem',
-                      fontWeight: isActive('/seeker/dashboard') ? 700 : 500,
-                      color: isActive('/seeker/dashboard') ? '#2563EB' : '#475569',
-                      backgroundColor: isActive('/seeker/dashboard') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      fontWeight: (isActive('/home') || isActive('/seeker/dashboard') || isActive('/dashboard')) ? 700 : 500,
+                      color: (isActive('/home') || isActive('/seeker/dashboard') || isActive('/dashboard')) ? '#2563EB' : '#475569',
+                      backgroundColor: (isActive('/home') || isActive('/seeker/dashboard') || isActive('/dashboard')) ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
                       textDecoration: 'none',
                       transition: 'all 0.2s',
                     }}
                   >
-                    Dashboard
+                    Home
                   </Link>
                   <Link
                     to="/seeker/jobs"
