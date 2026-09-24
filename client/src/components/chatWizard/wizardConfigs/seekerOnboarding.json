@@ -1,0 +1,43 @@
+[
+  {
+    "id": "name",
+    "bot": "Hey there! 👋 Welcome to JobConnect. What should we call you?",
+    "type": "text",
+    "placeholder": "e.g. Adarsh Sharma",
+    "required": true
+  },
+  {
+    "id": "title",
+    "bot": "Awesome. What kind of role are you hunting for?",
+    "type": "text",
+    "placeholder": "e.g. Senior Full Stack Engineer / React Specialist",
+    "required": true
+  },
+  {
+    "id": "experience",
+    "bot": "How many years of professional experience do you bring to the table?",
+    "type": "number",
+    "placeholder": "e.g. 4",
+    "required": true
+  },
+  {
+    "id": "skills",
+    "bot": "Great. What core technical skills or frameworks are you strongest in?",
+    "type": "tags",
+    "placeholder": "Type a skill (e.g. React, Node.js, MongoDB) and press Enter",
+    "defaultTags": ["React", "JavaScript"]
+  },
+  {
+    "id": "location",
+    "bot": "Where are you based, or what is your preferred work setup?",
+    "type": "text",
+    "placeholder": "e.g. Bangalore / Remote",
+    "required": false
+  },
+  {
+    "id": "resume",
+    "bot": "Last step! Drop your resume here 📄. Our local rule-based verification check will analyze skill consistency instantly.",
+    "type": "file",
+    "required": false
+  }
+]

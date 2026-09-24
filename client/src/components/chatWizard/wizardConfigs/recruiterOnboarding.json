@@ -1,0 +1,37 @@
+[
+  {
+    "id": "name",
+    "bot": "Welcome aboard! Let's get your hiring workspace setup. What is your full name?",
+    "type": "text",
+    "placeholder": "e.g. Sarah Jenkins",
+    "required": true
+  },
+  {
+    "id": "companyName",
+    "bot": "Which company or startup are you representing?",
+    "type": "text",
+    "placeholder": "e.g. Nexus Cloud Technologies",
+    "required": true
+  },
+  {
+    "id": "designation",
+    "bot": "What is your designation at the company?",
+    "type": "text",
+    "placeholder": "e.g. Lead Talent Partner / Head of Engineering",
+    "required": true
+  },
+  {
+    "id": "website",
+    "bot": "What is your company website URL?",
+    "type": "text",
+    "placeholder": "https://company.example.com",
+    "required": false
+  },
+  {
+    "id": "hiringRoles",
+    "bot": "What target categories or tech stacks are you primarily hiring for?",
+    "type": "tags",
+    "placeholder": "Type role/tech (e.g. MERN, DevOps, Backend) and hit Enter",
+    "defaultTags": ["Full Stack", "React", "Node.js"]
+  }
+]
