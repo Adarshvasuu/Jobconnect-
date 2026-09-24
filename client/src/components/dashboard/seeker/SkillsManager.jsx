@@ -24,10 +24,22 @@ export const SkillsManager = ({ initialSkills = ['React', 'Node.js', 'MongoDB', 
   };
 
   return (
-    <div className="glass-panel" style={{ padding: '24px' }}>
-      <h3 style={{ fontSize: '1.05rem', marginBottom: '14px' }}>Skills & Competencies</h3>
+    <div
+      style={{
+        padding: '24px',
+        borderRadius: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.95)',
+        boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0,0,0,0.04)',
+      }}
+    >
+      <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
+        Skills & Competencies
+      </h3>
 
-      {/* Active Skills */}
+      {/* Active Skills Chips */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
         {skills.map((skill) => (
           <span
@@ -36,21 +48,22 @@ export const SkillsManager = ({ initialSkills = ['React', 'Node.js', 'MongoDB', 
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '5px 12px',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: 'rgba(99, 102, 241, 0.15)',
-              color: '#c7d2fe',
-              fontSize: '0.825rem',
-              fontWeight: 600,
-              border: '1px solid rgba(99, 102, 241, 0.3)',
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              backgroundColor: '#EFF6FF',
+              color: '#1D4ED8',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              border: '1px solid rgba(59, 130, 246, 0.25)',
+              boxShadow: '0 1px 3px rgba(37, 99, 235, 0.08)',
             }}
           >
             {skill}
             <button
               onClick={() => removeSkill(skill)}
-              style={{ background: 'transparent', border: 'none', color: '#c7d2fe', cursor: 'pointer', padding: 0 }}
+              style={{ background: 'transparent', border: 'none', color: '#60A5FA', cursor: 'pointer', padding: 0, display: 'flex' }}
             >
-              <X size={12} />
+              <X size={13} />
             </button>
           </span>
         ))}
@@ -72,12 +85,12 @@ export const SkillsManager = ({ initialSkills = ['React', 'Node.js', 'MongoDB', 
           }}
           style={{
             flex: 1,
-            backgroundColor: 'var(--bg-tertiary)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
-            padding: '8px 12px',
-            color: 'var(--text-primary)',
-            fontSize: '0.85rem',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #CBD5E1',
+            borderRadius: '12px',
+            padding: '10px 14px',
+            color: '#0F172A',
+            fontSize: '0.88rem',
             outline: 'none',
           }}
         />
@@ -87,23 +100,27 @@ export const SkillsManager = ({ initialSkills = ['React', 'Node.js', 'MongoDB', 
             setInputVal('');
           }}
           style={{
-            padding: '8px 14px',
-            backgroundColor: 'var(--bg-tertiary)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
-            color: 'var(--text-primary)',
+            padding: '10px 16px',
+            backgroundColor: '#2563EB',
+            border: 'none',
+            borderRadius: '12px',
+            color: '#FFFFFF',
             cursor: 'pointer',
-            fontSize: '0.85rem',
+            fontSize: '0.88rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(37, 99, 235, 0.3)',
           }}
         >
           <Plus size={16} />
         </button>
       </div>
 
-      {/* Skill Gap Suggestions based on market demand */}
+      {/* Skill Suggestions */}
       {suggestedSkills.length > 0 && (
-        <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.785rem', color: 'var(--accent-amber)', marginBottom: '8px' }}>
+        <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', fontWeight: 700, color: '#D97706', marginBottom: '8px' }}>
             <Sparkles size={14} /> In-demand in your target category:
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -112,12 +129,13 @@ export const SkillsManager = ({ initialSkills = ['React', 'Node.js', 'MongoDB', 
                 key={s}
                 onClick={() => addSkill(s)}
                 style={{
-                  background: 'transparent',
-                  border: '1px dashed var(--border-hover)',
-                  borderRadius: 'var(--radius-full)',
-                  padding: '3px 10px',
-                  color: 'var(--text-secondary)',
-                  fontSize: '0.75rem',
+                  background: 'rgba(245, 158, 11, 0.08)',
+                  border: '1px dashed rgba(245, 158, 11, 0.4)',
+                  borderRadius: '9999px',
+                  padding: '4px 12px',
+                  color: '#B45309',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
                   cursor: 'pointer',
                 }}
               >

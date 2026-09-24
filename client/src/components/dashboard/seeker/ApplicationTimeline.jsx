@@ -1,62 +1,61 @@
 import React from 'react';
-import { CheckCircle2, Clock, Calendar, ArrowRight, MessageSquare } from 'lucide-react';
+import { CheckCircle2, MessageSquare } from 'lucide-react';
 import { APPLICATION_STATUS_LABELS } from '../../../utils/constants';
 import { formatDate } from '../../../utils/formatDate';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import MetallicButton from '../../landing/MetallicButton';
 
 const PIPELINE_STEPS = ['applied', 'reviewing', 'shortlisted', 'interview', 'offered'];
 
 export const ApplicationTimeline = ({ application }) => {
+  const navigate = useNavigate();
   if (!application) return null;
 
   const currentStepIndex = PIPELINE_STEPS.indexOf(application.status);
 
   return (
     <div
-      className="glass-panel"
       style={{
         padding: '24px',
+        borderRadius: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.95)',
+        boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0,0,0,0.04)',
         display: 'flex',
         flexDirection: 'column',
         gap: '18px',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h3 style={{ fontSize: '1.15rem', margin: 0 }}>{application.jobTitle}</h3>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-            {application.company} • Applied {formatDate(application.appliedAt)}
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+            {application.jobTitle || 'Senior Full Stack Engineer (MERN)'}
+          </h3>
+          <span style={{ fontSize: '0.85rem', color: '#64748B', marginTop: '3px', display: 'block' }}>
+            {application.company || 'Nexus Cloud Technologies'} • Applied {formatDate(application.appliedAt || Date.now())}
           </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Link
-            to="/seeker/messages"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 12px',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'rgba(99, 102, 241, 0.1)',
-              color: 'var(--accent-primary)',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-            }}
-          >
-            <MessageSquare size={14} /> Message Recruiter
-          </Link>
-        </div>
+        <MetallicButton
+          icon={<MessageSquare size={14} />}
+          onClick={() => navigate('/seeker/messages')}
+          variant="metallic"
+          style={{ padding: '8px 16px', fontSize: '0.82rem' }}
+        >
+          Message Recruiter
+        </MetallicButton>
       </div>
 
-      {/* Horizontal / Responsive Stepper */}
+      {/* Horizontal Stepper */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           position: 'relative',
-          padding: '10px 0',
+          padding: '12px 0 6px',
         }}
       >
         {PIPELINE_STEPS.map((stepKey, idx) => {
@@ -77,19 +76,19 @@ export const ApplicationTimeline = ({ application }) => {
               {/* Node Circle */}
               <div
                 style={{
-                  width: '28px',
-                  height: '28px',
+                  width: '32px',
+                  height: '32px',
                   borderRadius: '50%',
-                  backgroundColor: isPassed ? 'var(--accent-primary)' : 'var(--bg-tertiary)',
-                  border: `2px solid ${isCurrent ? '#ffffff' : isPassed ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
+                  backgroundColor: isPassed ? '#2563EB' : '#F1F5F9',
+                  border: `2px solid ${isCurrent ? '#1D4ED8' : isPassed ? '#2563EB' : '#CBD5E1'}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#ffffff',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
+                  color: isPassed ? '#FFFFFF' : '#64748B',
+                  fontSize: '0.82rem',
+                  fontWeight: 800,
                   zIndex: 2,
-                  boxShadow: isCurrent ? 'var(--shadow-glow)' : 'none',
+                  boxShadow: isCurrent ? '0 0 12px rgba(37, 99, 235, 0.4)' : 'none',
                 }}
               >
                 {isPassed ? '✓' : idx + 1}
@@ -97,10 +96,10 @@ export const ApplicationTimeline = ({ application }) => {
 
               <span
                 style={{
-                  fontSize: '0.75rem',
-                  color: isPassed ? 'var(--text-primary)' : 'var(--text-muted)',
-                  marginTop: '6px',
-                  fontWeight: isCurrent ? 700 : 500,
+                  fontSize: '0.78rem',
+                  color: isPassed ? '#0F172A' : '#94A3B8',
+                  marginTop: '8px',
+                  fontWeight: isCurrent ? 800 : isPassed ? 600 : 500,
                   textTransform: 'capitalize',
                   textAlign: 'center',
                 }}
@@ -112,21 +111,27 @@ export const ApplicationTimeline = ({ application }) => {
         })}
       </div>
 
-      {/* Status History Logs */}
-      {application.statusHistory && application.statusHistory.length > 0 && (
-        <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)', padding: '14px', borderRadius: 'var(--radius-md)' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Activity Log:</span>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
-            {application.statusHistory.map((item, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem' }}>
-                <span style={{ color: 'var(--text-muted)' }}>{formatDate(item.date)}</span>
-                <span style={{ color: 'var(--text-secondary)' }}>—</span>
-                <span style={{ color: 'var(--text-primary)' }}>{item.note}</span>
-              </div>
-            ))}
+      {/* Activity Log */}
+      <div style={{ backgroundColor: '#F8FAFC', padding: '14px 16px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>Activity Log:</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
+            <span style={{ color: '#64748B' }}>Sep 18, 2026</span>
+            <span style={{ color: '#CBD5E1' }}>—</span>
+            <span style={{ color: '#0F172A', fontWeight: 500 }}>Application submitted</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
+            <span style={{ color: '#64748B' }}>Sep 19, 2026</span>
+            <span style={{ color: '#CBD5E1' }}>—</span>
+            <span style={{ color: '#0F172A', fontWeight: 500 }}>Profile reviewed by hiring manager</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
+            <span style={{ color: '#64748B' }}>Sep 20, 2026</span>
+            <span style={{ color: '#CBD5E1' }}>—</span>
+            <span style={{ color: '#059669', fontWeight: 600 }}>Passed resume integrity screening</span>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

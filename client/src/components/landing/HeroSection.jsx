@@ -31,9 +31,6 @@ export function HeroSection({ onExploreClick }) {
   return (
     <section ref={heroRef} className="hero-section" style={{ height: "150vh" }}>
       <div className="hero-sticky-wrap">
-        {/* Luminous WebGL Background Plane */}
-        <HeroBackground color1="#93C5FD" color2="#EFF6FF" speed={0.7} />
-
         {/* Scroll-Shrinking Hero Content */}
         <motion.div className="hero-content" style={{ scale, y, opacity }}>
           {/* High-Contrast Tagline Badge */}

@@ -1,65 +1,60 @@
 import React from 'react';
 import { Calendar, Video, Clock, ExternalLink } from 'lucide-react';
-import Button from '../../common/Button';
+import MetallicButton from '../../landing/MetallicButton';
 
-export const InterviewCard = ({
-  interview = {
-    jobTitle: 'Senior Full Stack Engineer',
-    company: 'Nexus Cloud Technologies',
-    date: 'Thursday, Sep 28, 2026',
-    time: '4:00 PM - 5:00 PM IST',
-    mode: 'Online (Google Meet)',
-    link: 'https://meet.example.com/jobconnect-demo',
-  },
-}) => {
+export const InterviewCard = () => {
   return (
     <div
-      className="glass-panel"
       style={{
         padding: '24px',
-        border: '1px solid var(--border-hover)',
-        boxShadow: 'var(--shadow-glow)',
+        borderRadius: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.95)',
+        boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0,0,0,0.04)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-        <div
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+        <span
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: 'var(--radius-sm)',
-            backgroundColor: 'rgba(99, 102, 241, 0.2)',
-            color: 'var(--accent-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: '#059669',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            padding: '3px 8px',
+            borderRadius: '6px',
           }}
         >
-          <Calendar size={18} />
+          Upcoming Interview
+        </span>
+      </div>
+
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', margin: '0 0 12px' }}>
+        Senior Full Stack Engineer
+      </h3>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '18px', fontSize: '0.88rem', color: '#475569' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Clock size={16} color="#2563EB" />
+          <span>Thursday, Sep 28, 2026 at 4:00 PM - 5:00 PM IST</span>
         </div>
-        <div>
-          <span style={{ fontSize: '0.785rem', color: 'var(--accent-emerald)', fontWeight: 700, textTransform: 'uppercase' }}>
-            Upcoming Interview
-          </span>
-          <h4 style={{ margin: 0, fontSize: '1.05rem' }}>{interview.jobTitle}</h4>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Video size={16} color="#2563EB" />
+          <span>Online (Google Meet)</span>
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Clock size={15} color="var(--text-muted)" /> {interview.date} at {interview.time}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Video size={15} color="var(--text-muted)" /> {interview.mode}
-        </div>
-      </div>
-
-      <Button
-        size="sm"
-        icon={ExternalLink}
-        onClick={() => window.open(interview.link, '_blank')}
+      <MetallicButton
+        icon={<ExternalLink size={16} />}
+        onClick={() => window.open('https://meet.google.com', '_blank')}
+        variant="primary"
+        style={{ width: '100%', padding: '12px 20px', fontSize: '0.9rem' }}
       >
         Join Meeting Room
-      </Button>
+      </MetallicButton>
     </div>
   );
 };

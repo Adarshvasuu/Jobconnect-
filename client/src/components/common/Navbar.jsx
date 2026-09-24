@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Briefcase, User, LogOut, Shield, Compass, Sparkles, FileText, Layers, Send } from 'lucide-react';
+import { Briefcase, User, LogOut, Sparkles, MessageSquare, Compass, FileText, CheckCircle2, Shield } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
 import { USER_ROLES } from '../../utils/constants';
 import NotificationBell from './NotificationBell';
@@ -23,78 +23,75 @@ export const Navbar = () => {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        backgroundColor: 'rgba(11, 15, 25, 0.85)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid var(--border-subtle)',
+        backgroundColor: 'transparent',
+        padding: '14px 24px',
+        width: '100%',
       }}
     >
       <div
-        className="container"
         style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '72px',
+          padding: '8px 20px',
+          borderRadius: '9999px',
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.95)',
+          boxShadow: '0 8px 30px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0,0,0,0.04)',
         }}
       >
         {/* Brand Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Link
+          to="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            textDecoration: 'none',
+            color: '#0F172A',
+          }}
+        >
           <div
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: 'var(--radius-md)',
-              background: 'var(--gradient-brand)',
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff',
-              boxShadow: 'var(--shadow-glow)',
+              boxShadow: '0 4px 14px rgba(59, 130, 246, 0.35)',
             }}
           >
-            <Briefcase size={20} />
+            <Briefcase size={18} color="#FFFFFF" />
           </div>
-          <span style={{ fontSize: '1.35rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#ffffff' }}>
-            Job<span className="text-gradient">Connect</span>
+          <span style={{ fontSize: '1.2rem', fontWeight: 900, letterSpacing: '-0.02em', color: '#0F172A' }}>
+            Job<span style={{ color: '#2563EB' }}>Connect</span>
           </span>
         </Link>
 
-        {/* Dynamic Navigation Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          {/* Guest / Public Links */}
-          {!isAuthenticated ? (
+        {/* Dynamic Center Navigation Links */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {isAuthenticated ? (
             <>
-              <Link
-                to="/seeker/jobs"
-                style={{
-                  color: isActive('/seeker/jobs') ? 'var(--text-primary)' : 'var(--text-secondary)',
-                  fontWeight: 500,
-                  fontSize: '0.925rem',
-                }}
-              >
-                Explore Jobs
-              </Link>
-              <Link
-                to="/signup?role=recruiter"
-                style={{
-                  color: 'var(--text-secondary)',
-                  fontWeight: 500,
-                  fontSize: '0.925rem',
-                }}
-              >
-                For Employers
-              </Link>
-            </>
-          ) : (
-            <>
-              {/* Seeker Navigation */}
+              {/* Seeker Links */}
               {role === USER_ROLES.SEEKER && (
                 <>
                   <Link
                     to="/seeker/dashboard"
                     style={{
-                      color: isActive('/seeker/dashboard') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/seeker/dashboard') ? 700 : 500,
+                      color: isActive('/seeker/dashboard') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/seeker/dashboard') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
                     }}
                   >
                     Dashboard
@@ -102,8 +99,14 @@ export const Navbar = () => {
                   <Link
                     to="/seeker/jobs"
                     style={{
-                      color: isActive('/seeker/jobs') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/seeker/jobs') ? 700 : 500,
+                      color: isActive('/seeker/jobs') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/seeker/jobs') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
                     }}
                   >
                     Browse Jobs
@@ -111,8 +114,14 @@ export const Navbar = () => {
                   <Link
                     to="/seeker/applications"
                     style={{
-                      color: isActive('/seeker/applications') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/seeker/applications') ? 700 : 500,
+                      color: isActive('/seeker/applications') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/seeker/applications') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
                     }}
                   >
                     Applications
@@ -120,8 +129,14 @@ export const Navbar = () => {
                   <Link
                     to="/seeker/messages"
                     style={{
-                      color: isActive('/seeker/messages') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/seeker/messages') ? 700 : 500,
+                      color: isActive('/seeker/messages') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/seeker/messages') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
                     }}
                   >
                     Messages
@@ -129,228 +144,224 @@ export const Navbar = () => {
                 </>
               )}
 
-              {/* Recruiter Navigation */}
+              {/* Recruiter Links */}
               {role === USER_ROLES.RECRUITER && (
                 <>
                   <Link
                     to="/recruiter/dashboard"
                     style={{
-                      color: isActive('/recruiter/dashboard') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/recruiter/dashboard') ? 700 : 500,
+                      color: isActive('/recruiter/dashboard') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/recruiter/dashboard') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
                     }}
                   >
-                    Pipeline & Board
+                    Pipeline Board
                   </Link>
                   <Link
                     to="/recruiter/jobs/new"
                     style={{
-                      color: isActive('/recruiter/jobs/new') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/recruiter/jobs/new') ? 700 : 500,
+                      color: isActive('/recruiter/jobs/new') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/recruiter/jobs/new') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
                     }}
                   >
-                    + Post Job
+                    Post Job
                   </Link>
                   <Link
                     to="/recruiter/messages"
                     style={{
-                      color: isActive('/recruiter/messages') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive('/recruiter/messages') ? 700 : 500,
+                      color: isActive('/recruiter/messages') ? '#2563EB' : '#475569',
+                      backgroundColor: isActive('/recruiter/messages') ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                      textDecoration: 'none',
                     }}
                   >
-                    Messages
+                    Candidates
                   </Link>
                 </>
               )}
 
-              {/* Admin Navigation */}
+              {/* Admin Links */}
               {role === USER_ROLES.ADMIN && (
                 <>
                   <Link
                     to="/admin/dashboard"
                     style={{
-                      color: isActive('/admin/dashboard') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: 700,
+                      color: '#2563EB',
+                      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                      textDecoration: 'none',
                     }}
                   >
-                    Admin Hub
-                  </Link>
-                  <Link
-                    to="/admin/users"
-                    style={{
-                      color: isActive('/admin/users') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Users
-                  </Link>
-                  <Link
-                    to="/admin/jobs"
-                    style={{
-                      color: isActive('/admin/jobs') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Moderation
-                  </Link>
-                  <Link
-                    to="/admin/analytics"
-                    style={{
-                      color: isActive('/admin/analytics') ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Analytics
+                    Admin Console
                   </Link>
                 </>
               )}
             </>
+          ) : (
+            <>
+              <Link
+                to="/"
+                style={{
+                  padding: '7px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  color: '#2563EB',
+                  backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                  textDecoration: 'none',
+                }}
+              >
+                AI Onboarding
+              </Link>
+              <Link
+                to="/seeker/jobs"
+                style={{
+                  padding: '7px 16px',
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  color: '#475569',
+                  textDecoration: 'none',
+                }}
+              >
+                Browse Jobs
+              </Link>
+            </>
           )}
         </nav>
 
-        {/* Right Section: Role Switcher Demo Bar + Profile / Auth Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          {/* Quick Role Switcher for Hackathon Testing */}
-          {isAuthenticated && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: 'var(--radius-full)',
-                padding: '3px 4px',
-              }}
-              title="Dev Role Switcher"
-            >
-              <button
-                onClick={() => { switchRole(USER_ROLES.SEEKER); navigate('/seeker/dashboard'); }}
-                style={{
-                  padding: '4px 10px',
-                  borderRadius: 'var(--radius-full)',
-                  border: 'none',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  backgroundColor: role === USER_ROLES.SEEKER ? 'var(--accent-primary)' : 'transparent',
-                  color: role === USER_ROLES.SEEKER ? '#fff' : 'var(--text-muted)',
-                }}
-              >
-                Seeker
-              </button>
-              <button
-                onClick={() => { switchRole(USER_ROLES.RECRUITER); navigate('/recruiter/dashboard'); }}
-                style={{
-                  padding: '4px 10px',
-                  borderRadius: 'var(--radius-full)',
-                  border: 'none',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  backgroundColor: role === USER_ROLES.RECRUITER ? 'var(--accent-secondary)' : 'transparent',
-                  color: role === USER_ROLES.RECRUITER ? '#fff' : 'var(--text-muted)',
-                }}
-              >
-                Recruiter
-              </button>
-              <button
-                onClick={() => { switchRole(USER_ROLES.ADMIN); navigate('/admin/dashboard'); }}
-                style={{
-                  padding: '4px 10px',
-                  borderRadius: 'var(--radius-full)',
-                  border: 'none',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  backgroundColor: role === USER_ROLES.ADMIN ? 'var(--accent-rose)' : 'transparent',
-                  color: role === USER_ROLES.ADMIN ? '#fff' : 'var(--text-muted)',
-                }}
-              >
-                Admin
-              </button>
-            </div>
-          )}
-
+        {/* Right Actions: Role Switcher Capsule + Notifications + User Avatar / Logout */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           {isAuthenticated ? (
             <>
+              {/* Role Switcher Pill Capsule */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '3px',
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(241, 245, 249, 0.9)',
+                  border: '1px solid rgba(226, 232, 240, 0.9)',
+                }}
+              >
+                {[
+                  { r: USER_ROLES.SEEKER, label: 'Seeker', path: '/seeker/dashboard' },
+                  { r: USER_ROLES.RECRUITER, label: 'Recruiter', path: '/recruiter/dashboard' },
+                  { r: USER_ROLES.ADMIN, label: 'Admin', path: '/admin/dashboard' },
+                ].map(({ r, label, path }) => (
+                  <button
+                    key={r}
+                    onClick={() => {
+                      switchRole(r);
+                      navigate(path);
+                    }}
+                    style={{
+                      padding: '4px 12px',
+                      borderRadius: '9999px',
+                      border: 'none',
+                      fontSize: '0.78rem',
+                      fontWeight: role === r ? 700 : 500,
+                      color: role === r ? '#FFFFFF' : '#64748B',
+                      backgroundColor: role === r ? '#2563EB' : 'transparent',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Notification Bell */}
               <NotificationBell />
 
+              {/* User Avatar Circle */}
               <Link
-                to={role === USER_ROLES.SEEKER ? '/seeker/profile' : role === USER_ROLES.RECRUITER ? '/recruiter/profile' : '/admin/dashboard'}
+                to={role === USER_ROLES.SEEKER ? '/seeker/profile' : '/recruiter/profile'}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '4px 8px',
-                  borderRadius: 'var(--radius-md)',
-                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  color: '#0F172A',
                 }}
               >
                 <div
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: '34px',
+                    height: '34px',
                     borderRadius: '50%',
-                    background: 'var(--gradient-card)',
-                    border: '1px solid var(--border-hover)',
+                    backgroundColor: '#1E293B',
+                    color: '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.85rem',
                     fontWeight: 700,
+                    fontSize: '0.85rem',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
                   }}
                 >
-                  {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  {user?.name?.[0]?.toUpperCase() || 'U'}
                 </div>
-                <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>{user?.name}</span>
+                <span style={{ fontSize: '0.88rem', fontWeight: 600, color: '#1E293B' }}>
+                  {user?.name?.split(' ')[0] || 'User'}
+                </span>
               </Link>
 
+              {/* Logout Button */}
               <button
                 onClick={handleLogout}
+                title="Log Out"
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: 'var(--text-muted)',
+                  color: '#64748B',
                   cursor: 'pointer',
                   padding: '6px',
-                  borderRadius: 'var(--radius-sm)',
+                  borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  transition: 'color 0.2s',
                 }}
-                title="Logout"
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#DC2626')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
               >
-                <LogOut size={18} />
+                <LogOut size={17} />
               </button>
             </>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Link
-                to="/login"
-                style={{
-                  padding: '8px 16px',
-                  fontSize: '0.9rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: 600,
-                }}
-              >
-                Log In
-              </Link>
-              <Link
-                to="/signup"
-                style={{
-                  padding: '8px 18px',
-                  borderRadius: 'var(--radius-md)',
-                  background: 'var(--accent-primary)',
-                  color: '#ffffff',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  boxShadow: 'var(--shadow-glow)',
-                }}
-              >
-                Get Started
-              </Link>
-            </div>
+            <Link
+              to="/login"
+              style={{
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                color: '#0F172A',
+                textDecoration: 'none',
+                padding: '7px 18px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              Sign In
+            </Link>
           )}
         </div>
       </div>

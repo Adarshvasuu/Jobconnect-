@@ -118,9 +118,6 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         overflowX: 'hidden',
       }}
     >
-      {/* 1. Exact WebGL Hero Shader Plane Background */}
-      <HeroBackground color1="#3B82F6" color2="#F0F9FF" speed={0.9} />
-
       {/* 2. Top Floating Header Bar */}
       <header
         style={{

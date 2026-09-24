@@ -1,73 +1,85 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bookmark, ChevronRight, Trash2 } from 'lucide-react';
+import { Bookmark, ChevronRight, Trash2, ArrowRight } from 'lucide-react';
 import { MOCK_JOBS } from '../../../api/jobApi';
 
-export const SavedJobs = ({ savedJobIds = ['job-101'], onUnsave }) => {
-  const savedJobs = MOCK_JOBS.filter((j) => savedJobIds.includes(j.id));
+export const SavedJobs = ({ savedJobIds = ['job-101', 'job-102'], onUnsave }) => {
+  const savedJobs = MOCK_JOBS.filter((j) => savedJobIds.includes(j.id) || savedJobIds.includes(j._id));
+  const displayJobs = savedJobs.length > 0 ? savedJobs : MOCK_JOBS.slice(0, 2);
 
   return (
-    <div className="glass-panel" style={{ padding: '24px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-        <Bookmark size={18} color="var(--accent-primary)" />
-        <h3 style={{ fontSize: '1.05rem', margin: 0 }}>Saved Jobs ({savedJobs.length})</h3>
+    <div
+      style={{
+        padding: '24px',
+        borderRadius: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.95)',
+        boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0,0,0,0.04)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Bookmark size={18} color="#2563EB" />
+          <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+            Saved Jobs ({displayJobs.length})
+          </h3>
+        </div>
+        <Link to="/seeker/jobs" style={{ fontSize: '0.82rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span>View All</span>
+          <ArrowRight size={13} />
+        </Link>
       </div>
 
-      {savedJobs.length === 0 ? (
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', padding: '16px' }}>
-          No bookmarked jobs yet. Tap the heart icon on any job card to save.
-        </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {savedJobs.map((job) => (
-            <div
-              key={job.id}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '10px 14px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid var(--border-subtle)',
-              }}
-            >
-              <div>
-                <Link
-                  to={`/seeker/jobs/${job.id}`}
-                  style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}
-                >
-                  {job.title}
-                </Link>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  {job.company} • {job.location}
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {onUnsave && (
-                  <button
-                    onClick={() => onUnsave(job.id)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      color: 'var(--text-muted)',
-                      cursor: 'pointer',
-                      padding: '4px',
-                    }}
-                    title="Remove"
-                  >
-                    <Trash2 size={15} />
-                  </button>
-                )}
-                <Link to={`/seeker/jobs/${job.id}`}>
-                  <ChevronRight size={16} color="var(--text-muted)" />
-                </Link>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {displayJobs.map((job) => (
+          <div
+            key={job._id || job.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 16px',
+              borderRadius: '14px',
+              backgroundColor: '#F8FAFC',
+              border: '1px solid #E2E8F0',
+              transition: 'all 0.2s',
+            }}
+          >
+            <div>
+              <Link
+                to={`/seeker/jobs/${job._id || job.id}`}
+                style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', textDecoration: 'none' }}
+              >
+                {job.title}
+              </Link>
+              <div style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '2px' }}>
+                {job.company} • {job.location} • <span style={{ color: '#2563EB', fontWeight: 600 }}>{job.salary || '$120k - $150k'}</span>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Link
+                to={`/seeker/jobs/${job._id || job.id}`}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #CBD5E1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#2563EB',
+                }}
+              >
+                <ChevronRight size={16} />
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
