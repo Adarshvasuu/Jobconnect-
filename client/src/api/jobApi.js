@@ -100,6 +100,8 @@ export const jobApi = {
           (j) =>
             j.title.toLowerCase().includes(query) ||
             j.company.toLowerCase().includes(query) ||
+            j.location?.toLowerCase().includes(query) ||
+            j.type?.toLowerCase().includes(query) ||
             j.skillsRequired.some((s) => s.toLowerCase().includes(query))
         );
       }

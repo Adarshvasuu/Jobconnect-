@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import JobList from '../components/jobs/JobList';
@@ -9,11 +10,12 @@ import { useDebounce } from '../hooks/useDebounce';
 import { useNotifications } from '../context/NotificationContext';
 
 export const JobListingsPage = () => {
+  const [searchParams] = useSearchParams();
   const { addToast } = useNotifications();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [savedJobIds, setSavedJobIds] = useState(MOCK_PROFILE.savedJobs || []);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get('search') || '');
   const [selectedType, setSelectedType] = useState('All');
   const [sortBy, setSortBy] = useState('match');
 
