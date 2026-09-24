@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SeekerLayout from '../components/layout/SeekerLayout';
+import Navbar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
 import JobList from '../components/jobs/JobList';
 import JobFilters from '../components/jobs/JobFilters';
 import { jobApi, MOCK_JOBS } from '../api/jobApi';
@@ -57,13 +58,13 @@ export const JobListingsPage = () => {
   };
 
   return (
-    <SeekerLayout>
+    <div className="page-wrapper"><Navbar /><main className="container main-content">
       <div style={{ marginBottom: '28px' }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '6px' }}>
-          Browse <span className="text-gradient">Job Opportunities</span>
+          Find Your <span className="text-gradient">Next Opportunity</span>
         </h1>
         <p style={{ color: 'var(--text-secondary)' }}>
-          {loading ? 'Fetching...' : `${jobs.length} jobs available — ranked by skill overlap match`}
+          Explore jobs matched to your Career DNA. {loading ? 'Loading…' : `${jobs.length} opportunities · sample listings are clearly marked`}
         </p>
       </div>
 
@@ -83,7 +84,7 @@ export const JobListingsPage = () => {
         savedJobIds={savedJobIds}
         onToggleSave={handleToggleSave}
       />
-    </SeekerLayout>
+    </main><Footer /></div>
   );
 };
 

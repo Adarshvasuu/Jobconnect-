@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import SeekerLayout from '../components/layout/SeekerLayout';
 import JobDetailsCard from '../components/jobs/JobDetailsCard';
 import SimilarJobs from '../components/jobs/SimilarJobs';
@@ -15,6 +15,7 @@ import Button from '../components/common/Button';
 
 export const JobDetailsPage = () => {
   const { jobId } = useParams();
+  const navigate = useNavigate();
   const { addToast } = useNotifications();
 
   const [job, setJob] = useState(null);
@@ -71,8 +72,8 @@ export const JobDetailsPage = () => {
     <SeekerLayout>
       <Breadcrumbs
         customCrumbs={[
-          { href: '/seeker/jobs', label: 'Browse Jobs' },
-          { href: `/seeker/jobs/${jobId}`, label: job.title },
+          { href: '/jobs', label: 'Browse Jobs' },
+          { href: `/jobs/${jobId}`, label: job.title },
         ]}
       />
 
@@ -104,20 +105,15 @@ export const JobDetailsPage = () => {
       <Modal
         isOpen={showApplyModal}
         onClose={() => setShowApplyModal(false)}
-        title="Confirm Application"
+        title="Login to Apply"
       >
         <p style={{ marginBottom: '20px', color: 'var(--text-secondary)' }}>
-          You're about to apply for <strong style={{ color: '#fff' }}>{job.title}</strong> at{' '}
-          <strong style={{ color: '#fff' }}>{job.company}</strong>. Your verified resume will be
-          attached automatically.
+          Create your Career DNA account to apply for this opportunity and track your application.
+          {job.isDemo && <><br/><br/><strong>This is a demo opportunity, not a verified vacancy.</strong></>}
         </p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-          <Button variant="secondary" onClick={() => setShowApplyModal(false)}>
-            Cancel
-          </Button>
-          <Button loading={applying} onClick={handleApply}>
-            Confirm & Apply
-          </Button>
+          <Button variant="secondary" onClick={() => navigate(`/login?returnTo=/apply/${jobId}`)}>Login</Button>
+          <Button onClick={() => navigate(`/signup?returnTo=/apply/${jobId}`)}>Create Account</Button>
         </div>
       </Modal>
     </SeekerLayout>

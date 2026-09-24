@@ -72,6 +72,19 @@ export const MOCK_JOBS = [
   },
 ];
 
+// Clearly marked sample opportunities used until an authorized jobs source is connected.
+const SAMPLE_ROLES = [
+  ['AI/ML Intern','Northstar Labs',['Python','Machine Learning','Pandas','NumPy']],['Python Developer','CodeHarbor',['Python','Django','SQL']],['Data Analyst','Metric Grove',['SQL','Python','Data Analysis']],['Machine Learning Intern','Orbit Analytics',['Python','Machine Learning','TensorFlow']],['Full Stack Developer','Brightpath Digital',['React','Node.js','MongoDB']],['Frontend Developer','Pixel Orchard',['HTML','CSS','JavaScript','React']],['Backend Developer','Copperline Systems',['Node.js','Python','MongoDB']],['Cloud Engineer','Cloudnest Works',['AWS','Docker','Linux']],['Data Science Intern','Fieldnote AI',['Python','Pandas','Statistics']],['Software Engineer','Juniper Software',['Java','Data Structures','SQL']],['AI Research Intern','Vector Studio',['Python','Machine Learning','PyTorch']],['DevOps Intern','Buildwell Tech',['Docker','AWS','CI/CD']],['Business Analyst','Clearview Partners',['SQL','Excel','Communication']],['Data Engineer','Riverbed Data',['Python','SQL','ETL']],['Java Developer','Maple Stack',['Java','Spring','SQL']],['React Developer','Little Pixel Co.',['React','JavaScript','CSS']],['Cybersecurity Intern','Signal Fort',['Linux','Networking','Python']],['Product Intern','Northwind Product Lab',['Research','Analytics','Communication']],['Cloud Computing Intern','Skyframe Systems',['AWS','Linux','Python']],['Software Development Intern','Openfield Codeworks',['JavaScript','Git','Python']]
+];
+const sampleJobs = SAMPLE_ROLES.map(([title, company, skills], index) => ({
+  id: `demo-${index + 1}`, title, company, logo: '', location: ['Chennai, India','Bengaluru, India','Remote, India'][index % 3],
+  type: index % 4 === 0 ? 'Internship' : (index % 5 === 0 ? 'Remote' : 'Full-time'), category: 'Demo opportunity',
+  experience: index % 4 === 0 ? 'Fresher / 0–1 years' : '0–2 years', salary: { min: 0, max: 0, currency: '₹' },
+  skillsRequired: skills, matchScore: 68 + (index * 7 % 27), description: `${title} opportunity at ${company}. This sample listing demonstrates the Career DNA job discovery experience; it is not a verified vacancy.`,
+  postedAt: new Date(Date.now() - index * 86400000).toISOString(), applicantsCount: 0, status: 'active', isDemo: true,
+}));
+MOCK_JOBS.push(...sampleJobs);
+
 export const jobApi = {
   // Fetch jobs with filters
   getJobs: async (params = {}) => {

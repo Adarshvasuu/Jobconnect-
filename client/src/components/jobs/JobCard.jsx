@@ -33,11 +33,11 @@ export const JobCard = ({ job, isSaved = false, onToggleSave, onApply }) => {
           />
           <div>
             <h3 style={{ fontSize: '1.1rem', margin: 0, fontWeight: 700 }}>
-              <Link to={`/seeker/jobs/${job.id}`} style={{ color: 'var(--text-primary)' }}>
+              <Link to={`/jobs/${job.id}`} style={{ color: 'var(--text-primary)' }}>
                 {job.title}
               </Link>
             </h3>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{job.company}</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{job.company}{job.isDemo && <small style={{ marginLeft: 7, color: '#a16207' }}>Demo Company</small>}</span>
           </div>
         </div>
 
@@ -128,7 +128,7 @@ export const JobCard = ({ job, isSaved = false, onToggleSave, onApply }) => {
 
         <div style={{ display: 'flex', gap: '8px' }}>
           <Link
-            to={`/seeker/jobs/${job.id}`}
+            to={`/jobs/${job.id}`}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -140,6 +140,7 @@ export const JobCard = ({ job, isSaved = false, onToggleSave, onApply }) => {
           >
             Details <ChevronRight size={14} />
           </Link>
+          <button onClick={() => onApply ? onApply(job) : window.location.assign(`/login?returnTo=/apply/${job.id}`)} style={{ border: 0, borderRadius: 9, padding: '8px 12px', background: '#2563eb', color: 'white', fontWeight: 700, cursor: 'pointer' }}>Apply Now</button>
         </div>
       </div>
     </div>

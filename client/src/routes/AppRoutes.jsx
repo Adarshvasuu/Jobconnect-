@@ -26,6 +26,8 @@ import JobPostingPage from '../pages/JobPostingPage';
 
 // 404
 import NotFoundPage from '../pages/NotFoundPage';
+import ResumeAnalysisPages from '../pages/ResumeAnalysisPages';
+import ApplyJobPage from '../pages/ApplyJobPage';
 
 // Route Guard
 import ProtectedRoute from '../components/common/ProtectedRoute';
@@ -37,6 +39,11 @@ export const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route path="/analyze-resume" element={<ResumeAnalysisPages.Upload />} />
+      <Route path="/resume-analysis/:analysisId" element={<ResumeAnalysisPages.Result />} />
+      <Route path="/jobs" element={<JobListingsPage />} />
+      <Route path="/jobs/:jobId" element={<JobDetailsPage />} />
+      <Route path="/apply/:jobId" element={<ApplyJobPage />} />
 
       {/* ======================== Onboarding (Auth Required) ======================== */}
       <Route

@@ -21,7 +21,7 @@ export function HeroSection({ onExploreClick }) {
   const opacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0.9]);
 
   const goToResumeUpload = () => {
-    navigate('/onboarding/seeker');
+    navigate('/analyze-resume');
   };
 
   const goToJobSearch = () => {
@@ -66,7 +66,7 @@ export function HeroSection({ onExploreClick }) {
             className="hero-cta-row"
           >
             <MetallicButton icon={<FileUp size={18} />} onClick={goToResumeUpload} variant="primary">
-              Upload Resume
+              Analyze My Resume
             </MetallicButton>
             <MetallicButton icon={<Search size={18} />} onClick={goToJobSearch} variant="metallic">
               Search Jobs

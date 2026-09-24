@@ -204,6 +204,10 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
 
           {/* Action Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              onClick={() => navigate('/analyze-resume')}
+              style={{ background: 'linear-gradient(110deg,#4679ec,#765de8)', border: 0, color: '#fff', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 15px', borderRadius: '9999px', boxShadow: '0 5px 16px rgba(50,90,190,.2)' }}
+            ><FileText size={14}/><span>Analyze My Resume</span></button>
             {onNavigateToShowcase && (
               <button
                 onClick={onNavigateToShowcase}
