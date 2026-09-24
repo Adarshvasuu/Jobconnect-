@@ -30,6 +30,7 @@ import JobPostingPage from '../pages/JobPostingPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ResumeAnalysisPages from '../pages/ResumeAnalysisPages';
 import ApplyJobPage from '../pages/ApplyJobPage';
+import MainMenuPage from '../pages/MainMenuPage';
 
 // Smart Dashboard Dispatcher that renders the correct role dashboard without blank screens
 const DashboardDispatcher = () => {
@@ -50,8 +51,8 @@ export const AppRoutes = () => {
     <Routes>
       {/* ======================== Public & Core Navigation Routes ======================== */}
       <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<DashboardDispatcher />} />
-      <Route path="/menu" element={<DashboardDispatcher />} />
+      <Route path="/home" element={<MainMenuPage />} />
+      <Route path="/menu" element={<MainMenuPage />} />
       <Route path="/dashboard" element={<DashboardDispatcher />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
