@@ -35,6 +35,8 @@ export const AppRoutes = () => {
     <Routes>
       {/* ======================== Public Routes ======================== */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/home" element={<SeekerDashboard />} />
+      <Route path="/dashboard" element={<SeekerDashboard />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
 

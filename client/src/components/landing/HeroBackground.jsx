@@ -1,13 +1,33 @@
-import React, { useRef, useMemo, useState, useEffect } from "react";
+import React, { useRef, useMemo, useState, useEffect, Component } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+
+// React Error Boundary for 3D Canvas
+class CanvasErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error, info) {
+    console.info("WebGL Shader fallback triggered:", error?.message || error);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
 
 // --- Exact Shader Code from HeroGeometric ---
 const vertexShader = `
 varying vec2 vUv;
 void main() {
   vUv = uv;
-  gl_Position = vec4(position.xy, 0.0, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 `;
 
@@ -126,13 +146,13 @@ function sanitizeHexColor(value, fallback) {
   return trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
 }
 
-const FullscreenShaderPlane = ({ color1, color2, speed = 1 }) => {
+const GradientPlane = ({ color1, color2, speed = 1 }) => {
   const meshRef = useRef(null);
 
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      uResolution: { value: new THREE.Vector2(1000, 1000) },
       uColor1: { value: new THREE.Color(HERO_GEOMETRIC_FALLBACK_COLOR_1) },
       uColor2: { value: new THREE.Color(HERO_GEOMETRIC_FALLBACK_COLOR_2) },
     }),
@@ -148,13 +168,13 @@ const FullscreenShaderPlane = ({ color1, color2, speed = 1 }) => {
   });
 
   return (
-    <mesh ref={meshRef}>
-      {/* Plane covering the full [-1, 1] NDC space */}
+    <mesh ref={meshRef} scale={[3.5, 3.5, 1]}>
       <planeGeometry args={[2, 2]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
+        transparent={true}
         depthWrite={false}
         depthTest={false}
       />
@@ -180,21 +200,26 @@ export default function HeroBackground({
     }
   }, []);
 
+  const fallbackBackground = (
+    <div
+      className={`hero-bg-canvas ${className}`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "radial-gradient(circle at 30% 20%, #EFF6FF 0%, #DBEAFE 40%, #FFFFFF 100%)",
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+    />
+  );
+
   if (!hasWebGL) {
-    return (
-      <div
-        className={`hero-bg-canvas ${className}`}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          background: "radial-gradient(circle at 50% 30%, #F0F9FF 0%, #FFFFFF 80%)",
-          zIndex: 0,
-        }}
-      />
-    );
+    return fallbackBackground;
   }
 
   return (
@@ -215,25 +240,26 @@ export default function HeroBackground({
         padding: 0,
       }}
     >
-      <Canvas
-        orthographic
-        camera={{ position: [0, 0, 1], left: -1, right: 1, top: 1, bottom: -1, near: 0.1, far: 10 }}
-        dpr={[1, 1]}
-        gl={{
-          antialias: false,
-          alpha: false,
-        }}
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "block",
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
-      >
-        <FullscreenShaderPlane color1={color1} color2={color2} speed={speed} />
-      </Canvas>
+      <CanvasErrorBoundary fallback={fallbackBackground}>
+        <Canvas
+          camera={{ position: [0, 0, 1] }}
+          dpr={[1, 1]}
+          gl={{
+            antialias: false,
+            alpha: true,
+          }}
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "block",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        >
+          <GradientPlane color1={color1} color2={color2} speed={speed} />
+        </Canvas>
+      </CanvasErrorBoundary>
     </div>
   );
 }
