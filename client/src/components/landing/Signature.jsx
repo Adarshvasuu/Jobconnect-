@@ -1,11 +1,11 @@
-// Signature.jsx — Crisp animated signature brand mark with SVG draw-on effect
+// Signature.jsx - Crisp animated signature brand mark with SVG draw-on effect
 import React from "react";
 import { motion } from "framer-motion";
 
 export function Signature({
   text = "JobConnect",
   color = "#1D4ED8",
-  fontSize = 58,
+  fontSize = 74,
   delay = 0.1,
   duration = 1.2,
   className = "",
@@ -14,7 +14,10 @@ export function Signature({
     <div
       className={`signature-container ${className}`}
       style={{
-        display: "inline-flex",
+        display: "flex",
+        width: "100%",
+        margin: "0 auto",
+        textAlign: "center",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
@@ -48,7 +51,7 @@ export function Signature({
         height="24"
         viewBox="0 0 320 24"
         fill="none"
-        style={{ overflow: "visible", marginTop: "2px" }}
+        style={{ overflow: "visible", marginTop: "4px", margin: "0 auto", display: "block" }}
       >
         <motion.path
           d="M 20 16 Q 160 26, 300 12"

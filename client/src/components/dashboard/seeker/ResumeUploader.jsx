@@ -72,7 +72,7 @@ export const ResumeUploader = ({ resume, onUploadSuccess }) => {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontWeight: 700, fontSize: '0.92rem', color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {resume?.fileName || 'Adarsh_Sharma_Resume_2026.pdf'}
+            {resume?.fileName || 'Gokul_Sharma_Resume_2026.pdf'}
           </div>
           <div style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '2px' }}>
             {resume?.fileSize || '1.2 MB'} • Uploaded {new Date(resume?.uploadedAt || Date.now()).toLocaleDateString()}

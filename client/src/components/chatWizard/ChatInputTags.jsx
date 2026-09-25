@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Plus, X, Check } from 'lucide-react';
 import Button from '../common/Button';
 
@@ -34,16 +34,21 @@ export const ChatInputTags = ({ onSubmit, defaultTags = [], placeholder = 'Add a
   return (
     <div
       style={{
-        backgroundColor: 'var(--bg-tertiary)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '16px',
+        backgroundColor: '#FFFFFF',
+        border: '1.5px solid #CBD5E1',
+        borderRadius: '16px',
+        padding: '18px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
+        gap: '14px',
         width: '100%',
+        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.05)',
       }}
     >
+      <div style={{ fontSize: '0.825rem', fontWeight: 600, color: '#475569' }}>
+        Select or add your top technical skills:
+      </div>
+
       {/* Tag Chips */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', minHeight: '32px' }}>
         {tags.map((tag) => (
@@ -53,29 +58,35 @@ export const ChatInputTags = ({ onSubmit, defaultTags = [], placeholder = 'Add a
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '5px 12px',
-              backgroundColor: 'rgba(99, 102, 241, 0.2)',
-              color: '#c7d2fe',
-              borderRadius: 'var(--radius-full)',
+              padding: '6px 14px',
+              backgroundColor: '#EEF2FF',
+              color: '#3730A3',
+              borderRadius: '9999px',
               fontSize: '0.85rem',
               fontWeight: 600,
-              border: '1px solid rgba(99, 102, 241, 0.4)',
+              border: '1.5px solid #C7D2FE',
+              boxShadow: '0 1px 3px rgba(55, 48, 163, 0.08)',
             }}
           >
             {tag}
             <button
+              type="button"
               onClick={() => removeTag(tag)}
               style={{
-                background: 'transparent',
+                background: 'rgba(55, 48, 163, 0.1)',
                 border: 'none',
-                color: '#c7d2fe',
+                borderRadius: '50%',
+                width: '18px',
+                height: '18px',
+                color: '#3730A3',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 padding: 0,
               }}
             >
-              <X size={13} />
+              <X size={12} />
             </button>
           </span>
         ))}
@@ -91,12 +102,12 @@ export const ChatInputTags = ({ onSubmit, defaultTags = [], placeholder = 'Add a
           placeholder={placeholder}
           style={{
             flex: 1,
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
-            padding: '8px 12px',
-            color: 'var(--text-primary)',
-            fontSize: '0.9rem',
+            backgroundColor: '#F8FAFC',
+            border: '1.5px solid #CBD5E1',
+            borderRadius: '10px',
+            padding: '10px 14px',
+            color: '#0F172A',
+            fontSize: '0.925rem',
             outline: 'none',
           }}
         />
@@ -104,17 +115,18 @@ export const ChatInputTags = ({ onSubmit, defaultTags = [], placeholder = 'Add a
           type="button"
           onClick={handleAddTag}
           style={{
-            padding: '8px 14px',
-            background: 'rgba(255, 255, 255, 0.1)',
+            padding: '10px 18px',
+            background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
             border: 'none',
-            borderRadius: 'var(--radius-md)',
-            color: '#fff',
+            borderRadius: '10px',
+            color: '#ffffff',
             cursor: 'pointer',
-            fontSize: '0.85rem',
+            fontSize: '0.875rem',
             fontWeight: 600,
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
+            gap: '6px',
+            boxShadow: '0 2px 6px rgba(37, 99, 235, 0.25)',
           }}
         >
           <Plus size={16} /> Add
@@ -122,7 +134,7 @@ export const ChatInputTags = ({ onSubmit, defaultTags = [], placeholder = 'Add a
       </div>
 
       {/* Confirm & Submit */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '6px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '4px' }}>
         <Button size="sm" onClick={handleConfirm} disabled={tags.length === 0} icon={Check}>
           Confirm Skills ({tags.length})
         </Button>

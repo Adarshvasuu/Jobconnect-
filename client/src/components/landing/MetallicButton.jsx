@@ -1,4 +1,4 @@
-// MetallicButton.jsx — Metallic styled action button with specular highlights and micro-interactions
+// MetallicButton.jsx - Metallic styled action button with specular highlights
 import React from 'react';
 import { motion } from 'framer-motion';
 

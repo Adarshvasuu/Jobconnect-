@@ -2,8 +2,13 @@ import React from 'react';
 import { BarChart3, TrendingUp, Users, Flame, Award, Database } from 'lucide-react';
 import { MOCK_ANALYTICS } from '../../../api/adminApi';
 
-export const AnalyticsCharts = ({ analytics = MOCK_ANALYTICS }) => {
-  const { hiringFunnel, topSkillsDemand, recruiterLeaderboard } = analytics;
+export const AnalyticsCharts = ({ analytics = {} }) => {
+  const hiringFunnel = (analytics?.hiringFunnel?.length ? analytics.hiringFunnel : MOCK_ANALYTICS.hiringFunnel).map((stage) => ({
+    ...stage,
+    percentage: stage.percentage ?? Math.min(100, Math.round(((stage.count || 1) / Math.max(1, analytics?.totalApplications || 5)) * 100)),
+  }));
+  const topSkillsDemand = analytics?.topSkillsDemand?.length ? analytics.topSkillsDemand : MOCK_ANALYTICS.topSkillsDemand;
+  const recruiterLeaderboard = analytics?.recruiterLeaderboard?.length ? analytics.recruiterLeaderboard : MOCK_ANALYTICS.recruiterLeaderboard;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>

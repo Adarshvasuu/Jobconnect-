@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { UploadCloud, FileText, CheckCircle, SkipForward } from 'lucide-react';
 import Button from '../common/Button';
 
@@ -29,14 +29,15 @@ export const ChatInputFile = ({ onSubmit, onSkip }) => {
   return (
     <div
       style={{
-        backgroundColor: 'var(--bg-tertiary)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
+        backgroundColor: '#FFFFFF',
+        border: '1.5px solid #CBD5E1',
+        borderRadius: '16px',
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '14px',
+        gap: '16px',
         width: '100%',
+        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.05)',
       }}
     >
       <div
@@ -44,13 +45,14 @@ export const ChatInputFile = ({ onSubmit, onSkip }) => {
         onDragLeave={() => setDragActive(false)}
         onDrop={handleDrop}
         style={{
-          border: `2px dashed ${dragActive ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
-          borderRadius: 'var(--radius-md)',
+          border: `2px dashed ${dragActive ? '#2563EB' : '#94A3B8'}`,
+          borderRadius: '12px',
           padding: '28px 16px',
           textAlign: 'center',
-          backgroundColor: dragActive ? 'rgba(99, 102, 241, 0.05)' : 'rgba(255, 255, 255, 0.02)',
+          backgroundColor: dragActive ? '#EFF6FF' : '#F8FAFC',
           cursor: 'pointer',
           position: 'relative',
+          transition: 'all 0.2s ease',
         }}
       >
         <input
@@ -70,22 +72,36 @@ export const ChatInputFile = ({ onSubmit, onSkip }) => {
 
         {selectedFile ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <FileText size={36} color="var(--accent-emerald)" />
-            <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.95rem' }}>
+            <FileText size={38} color="#059669" />
+            <span style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.975rem' }}>
               {selectedFile.name}
             </span>
-            <span style={{ fontSize: '0.785rem', color: 'var(--text-muted)' }}>
-              {(selectedFile.size / 1024 / 1024).toFixed(2)} MB • Ready for local verification
+            <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
+              {(selectedFile.size / 1024 / 1024).toFixed(2)} MB • Ready for integrity check
             </span>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <UploadCloud size={38} color="var(--accent-primary)" />
-            <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.95rem' }}>
-              Click to browse or drop your resume
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                background: '#EFF6FF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#2563EB',
+                marginBottom: '4px',
+              }}
+            >
+              <UploadCloud size={28} />
+            </div>
+            <span style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.975rem' }}>
+              Click to browse or drag & drop resume
             </span>
-            <span style={{ fontSize: '0.785rem', color: 'var(--text-muted)' }}>
-              Supports PDF or DOCX (Max 5MB)
+            <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
+              PDF or DOCX format (Max 5MB)
             </span>
           </div>
         )}

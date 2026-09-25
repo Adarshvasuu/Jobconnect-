@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Send, Paperclip } from 'lucide-react';
 
 export const MessageInput = ({ onSend, disabled = false }) => {
@@ -17,22 +17,24 @@ export const MessageInput = ({ onSend, disabled = false }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '10px',
-        padding: '12px 16px',
-        borderTop: '1px solid var(--border-subtle)',
-        backgroundColor: 'var(--bg-card-solid)',
+        gap: '12px',
+        padding: '14px 20px',
+        borderTop: '1.5px solid #E2E8F0',
+        backgroundColor: '#FFFFFF',
       }}
     >
       <button
         type="button"
         style={{
-          background: 'transparent',
-          border: 'none',
-          color: 'var(--text-muted)',
+          background: '#F1F5F9',
+          border: '1px solid #CBD5E1',
+          borderRadius: '10px',
+          color: '#64748B',
           cursor: 'pointer',
-          padding: '4px',
+          padding: '8px',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
         }}
         title="Attach file"
       >
@@ -47,12 +49,13 @@ export const MessageInput = ({ onSend, disabled = false }) => {
         disabled={disabled}
         style={{
           flex: 1,
-          backgroundColor: 'var(--bg-tertiary)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-md)',
-          padding: '10px 14px',
-          color: 'var(--text-primary)',
-          fontSize: '0.9rem',
+          backgroundColor: '#F8FAFC',
+          border: '1.5px solid #CBD5E1',
+          borderRadius: '12px',
+          padding: '11px 16px',
+          color: '#0F172A',
+          fontSize: '0.925rem',
+          fontWeight: 500,
           outline: 'none',
         }}
       />
@@ -61,19 +64,21 @@ export const MessageInput = ({ onSend, disabled = false }) => {
         type="submit"
         disabled={!text.trim() || disabled}
         style={{
-          width: '38px',
-          height: '38px',
-          borderRadius: 'var(--radius-md)',
-          background: text.trim() ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.05)',
-          color: text.trim() ? '#ffffff' : 'var(--text-muted)',
+          width: '42px',
+          height: '42px',
+          borderRadius: '12px',
+          background: text.trim() ? 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' : '#E2E8F0',
+          color: text.trim() ? '#FFFFFF' : '#94A3B8',
           border: 'none',
           cursor: text.trim() ? 'pointer' : 'not-allowed',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          boxShadow: text.trim() ? '0 4px 12px rgba(37, 99, 235, 0.25)' : 'none',
+          transition: 'all 0.15s ease',
         }}
       >
-        <Send size={16} />
+        <Send size={18} />
       </button>
     </form>
   );

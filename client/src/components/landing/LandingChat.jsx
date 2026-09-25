@@ -112,9 +112,12 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
         display: 'flex',
         flexDirection: 'column',
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        overflowX: 'hidden',
+        
+      overflowX: "hidden",
       }}
     >
+      {/* Dynamic 3D WebGL Shader / Gradient canvas */}
+      <HeroBackground />
       {/* 2. Top Floating Header Bar */}
       <header
         style={{
@@ -134,7 +137,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             justifyContent: 'space-between',
             padding: '8px 16px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(255, 255, 255, 0.75)',
+            backgroundColor: '#FFFFFF',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(255, 255, 255, 0.9)',
@@ -179,7 +182,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               gap: '8px',
               padding: '6px 14px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.85)',
+              backgroundColor: '#F8FAFC',
               border: '1px solid rgba(59, 130, 246, 0.2)',
               fontSize: '0.82rem',
               fontWeight: 600,
@@ -282,6 +285,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
           width: '100%',
           margin: '0 auto',
           padding: '36px 20px 140px',
+                backgroundColor: 'transparent',
           display: 'flex',
           flexDirection: 'column',
           zIndex: 10,
@@ -296,7 +300,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               gap: '6px',
               padding: '6px 16px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.85)',
+              backgroundColor: '#F8FAFC',
               border: '1px solid rgba(59, 130, 246, 0.25)',
               color: '#1E40AF',
               fontSize: '0.82rem',
@@ -417,7 +421,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             gap: '12px',
                             padding: '16px',
                             borderRadius: '14px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                            backgroundColor: '#F8FAFC',
                             border: '1px solid rgba(226, 232, 240, 0.9)',
                             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                             color: '#0F172A',
@@ -457,7 +461,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             gap: '12px',
                             padding: '16px',
                             borderRadius: '14px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                            backgroundColor: '#F8FAFC',
                             border: '1px solid rgba(226, 232, 240, 0.9)',
                             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                             color: '#0F172A',
@@ -699,7 +703,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '10px',
-                            backgroundColor: 'rgba(239, 246, 255, 0.7)',
+                            backgroundColor: '#EFF6FF',
                             padding: '18px',
                             borderRadius: '14px',
                             border: '1px solid rgba(59, 130, 246, 0.25)',
@@ -778,7 +782,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
                 style={{
                   padding: '12px 18px',
                   borderRadius: '20px 20px 20px 4px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                  backgroundColor: '#FFFFFF',
                   border: '1px solid rgba(255, 255, 255, 0.9)',
                   boxShadow: '0 4px 14px rgba(15, 23, 42, 0.06)',
                   display: 'flex',
@@ -823,7 +827,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.92)',
+              backgroundColor: '#FFFFFF',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               border: '1px solid rgba(255, 255, 255, 0.9)',
@@ -885,7 +889,7 @@ export const LandingChat = ({ onNavigateToShowcase }) => {
               fontWeight: 500,
             }}
           >
-            Press <strong>Enter ↵</strong> to submit • Real-time AI recruitment matchmaker
+            Press <strong>Enter</strong> to submit | Real-time AI recruitment matchmaker
           </div>
         </div>
       </footer>

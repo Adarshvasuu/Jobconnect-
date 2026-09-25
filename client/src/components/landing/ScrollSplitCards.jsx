@@ -1,39 +1,39 @@
-// ScrollSplitCards.jsx — plain React, 3D split-and-flip scroll interaction using Framer Motion
+// ScrollSplitCards.jsx - Plain React, 3D split-and-flip scroll interaction using Framer Motion
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Search, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
+import { Search, ShieldCheck, MessageSquare, ArrowRight } from "lucide-react";
 
 const CARDS = [
   {
-    title: "Browse Jobs",
-    description: "Explore curated listings matched to your skills and location in real time.",
-    bgColor: "#3B82F6",
+    title: "Browse Verified Jobs",
+    description: "Explore tech positions with transparent salary bands, clear technology stacks, and direct hiring contacts.",
+    bgColor: "#2563EB",
     textColor: "#FFFFFF",
     icon: <Search size={28} />,
     actionLabel: "Explore Openings",
     route: "/jobs",
-    tag: "MATCHMAKING",
+    tag: "CURATED ROLES",
   },
   {
-    title: "Verify Resume",
-    description: "Our integrity checks confirm your resume is consistent and original with automated badges.",
-    bgColor: "#18181B",
-    textColor: "#F0F9FF",
+    title: "ATS Resume Health Check",
+    description: "Audit your resume for parsing issues, keyword alignment, and formatting risks before submitting to employers.",
+    bgColor: "#0F172A",
+    textColor: "#F8FAFC",
     icon: <ShieldCheck size={28} />,
-    actionLabel: "Start Verification",
-    route: "/onboarding/seeker",
-    tag: "INTEGRITY",
+    actionLabel: "Analyze Resume",
+    route: "/analyze-resume",
+    tag: "QUALITY AUDIT",
   },
   {
-    title: "Add Skills",
-    description: "Keep your profile sharp — skills dynamically boost your recruiter match score.",
-    bgColor: "#F0F9FF",
-    textColor: "#18181B",
-    icon: <Sparkles size={28} color="#3B82F6" />,
-    actionLabel: "Manage Skills",
-    route: "/profile",
-    tag: "PROFILE",
+    title: "Direct Recruiter Chat",
+    description: "Skip agency screening queues and communicate directly with hiring leads inside dedicated application threads.",
+    bgColor: "#F8FAFC",
+    textColor: "#0F172A",
+    icon: <MessageSquare size={28} color="#2563EB" />,
+    actionLabel: "View Messages",
+    route: "/seeker/messages",
+    tag: "DIRECT MESSAGING",
   },
 ];
 
@@ -66,9 +66,9 @@ export function ScrollSplitCards({ imageSrc = "https://images.unsplash.com/photo
       <div className="split-scroll-sticky">
         {/* Section Heading Tag */}
         <div className="split-scroll-header">
-          <span className="split-scroll-badge">CORE CAPABILITIES</span>
-          <h2 className="split-scroll-heading">Engineered for frictionless hiring</h2>
-          <p className="split-scroll-subheading">Scroll to reveal how JobConnect accelerates your workflow</p>
+          <span className="split-scroll-badge">PLATFORM CAPABILITIES</span>
+          <h2 className="split-scroll-heading">Engineered for authentic hiring</h2>
+          <p className="split-scroll-subheading">Scroll to reveal how JobConnect accelerates career mobility</p>
         </div>
 
         <motion.div
@@ -87,7 +87,7 @@ export function ScrollSplitCards({ imageSrc = "https://images.unsplash.com/photo
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* Front Side of Card (Composite Image Split) */}
+              {/* Front Side of Card */}
               <motion.div
                 className="split-card-front"
                 style={{
@@ -108,7 +108,7 @@ export function ScrollSplitCards({ imageSrc = "https://images.unsplash.com/photo
                 </div>
               </motion.div>
 
-              {/* Back Side of Card (Flipped Content & Actions) */}
+              {/* Back Side of Card */}
               <motion.div
                 className="split-card-back"
                 style={{
@@ -117,14 +117,14 @@ export function ScrollSplitCards({ imageSrc = "https://images.unsplash.com/photo
                   transform: "rotateY(180deg)",
                   borderRadius: i === 0 ? borderRadiusLeft : i === 2 ? borderRadiusRight : borderRadiusMiddle,
                   boxShadow,
-                  border: card.bgColor === "#FFFFFF" || card.bgColor === "#F0F9FF" ? "1px solid rgba(0,0,0,0.08)" : "1px solid rgba(255,255,255,0.12)",
+                  border: card.bgColor === "#FFFFFF" || card.bgColor === "#F8FAFC" ? "1px solid rgba(0,0,0,0.08)" : "1px solid rgba(255,255,255,0.12)",
                 }}
               >
                 <div className="split-card-icon-wrap" style={{ color: card.textColor }}>
                   {card.icon}
                 </div>
                 <div className="split-card-content">
-                  <div className="split-card-tag" style={{ color: card.bgColor === "#F0F9FF" ? "#3B82F6" : "inherit", opacity: 0.8 }}>
+                  <div className="split-card-tag" style={{ color: card.bgColor === "#F8FAFC" ? "#2563EB" : "inherit", opacity: 0.85 }}>
                     {card.tag}
                   </div>
                   <h3 className="split-card-title">{card.title}</h3>
@@ -136,8 +136,8 @@ export function ScrollSplitCards({ imageSrc = "https://images.unsplash.com/photo
                   className="split-card-cta"
                   onClick={() => navigate(card.route)}
                   style={{
-                    backgroundColor: card.bgColor === "#3B82F6" ? "#FFFFFF" : (card.bgColor === "#18181B" ? "#3B82F6" : "#18181B"),
-                    color: card.bgColor === "#3B82F6" ? "#18181B" : "#FFFFFF",
+                    backgroundColor: card.bgColor === "#2563EB" ? "#FFFFFF" : (card.bgColor === "#0F172A" ? "#2563EB" : "#0F172A"),
+                    color: card.bgColor === "#2563EB" ? "#0F172A" : "#FFFFFF",
                   }}
                 >
                   <span>{card.actionLabel}</span>

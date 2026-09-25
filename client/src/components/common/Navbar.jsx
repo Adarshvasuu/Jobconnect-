@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Briefcase, User, LogOut, Sparkles, MessageSquare, Compass, FileText, CheckCircle2, Shield } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
@@ -6,7 +6,7 @@ import { USER_ROLES } from '../../utils/constants';
 import NotificationBell from './NotificationBell';
 
 export const Navbar = () => {
-  const { user, isAuthenticated, logout, switchRole, role } = useAuthContext();
+  const { user, isAuthenticated, logout, role } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,7 +37,7 @@ export const Navbar = () => {
           justifyContent: 'space-between',
           padding: '8px 20px',
           borderRadius: '9999px',
-          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          backgroundColor: 'rgba(255, 255, 255, 0.92)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           border: '1px solid rgba(255, 255, 255, 0.95)',
@@ -74,7 +74,7 @@ export const Navbar = () => {
           </span>
         </Link>
 
-        {/* Dynamic Center Navigation Links */}
+        {/* Dynamic Center Navigation Links based strictly on the user's logged-in role */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {isAuthenticated ? (
             <>
@@ -124,7 +124,7 @@ export const Navbar = () => {
                       transition: 'all 0.2s',
                     }}
                   >
-                    Applications
+                    Applications & History
                   </Link>
                   <Link
                     to="/seeker/messages"
@@ -187,7 +187,7 @@ export const Navbar = () => {
                       textDecoration: 'none',
                     }}
                   >
-                    Candidates
+                    Direct Messages
                   </Link>
                 </>
               )}
@@ -198,16 +198,30 @@ export const Navbar = () => {
                   <Link
                     to="/admin/dashboard"
                     style={{
-                      padding: '7px 16px',
+                      padding: '7px 18px',
                       borderRadius: '9999px',
                       fontSize: '0.88rem',
                       fontWeight: 700,
-                      color: '#2563EB',
-                      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                      color: '#FFFFFF',
+                      background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                      boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)',
                       textDecoration: 'none',
                     }}
                   >
-                    Admin Console
+                    Admin Control Hub
+                  </Link>
+                  <Link
+                    to="/jobs"
+                    style={{
+                      padding: '7px 16px',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: 500,
+                      color: '#475569',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Job Directory
                   </Link>
                 </>
               )}
@@ -229,7 +243,7 @@ export const Navbar = () => {
                 AI Onboarding
               </Link>
               <Link
-                to="/seeker/jobs"
+                to="/jobs"
                 style={{
                   padding: '7px 16px',
                   fontSize: '0.88rem',
@@ -244,47 +258,51 @@ export const Navbar = () => {
           )}
         </nav>
 
-        {/* Right Actions: Role Switcher Capsule + Notifications + User Avatar / Logout */}
+        {/* Right Actions: Authenticated Role Badge + Notifications + User Avatar / Logout */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           {isAuthenticated ? (
             <>
-              {/* Role Switcher Pill Capsule */}
+              {/* Official Verified Role Badge (Read-only, security protected) */}
               <div
                 style={{
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  padding: '3px',
+                  gap: '6px',
+                  padding: '5px 12px',
                   borderRadius: '9999px',
-                  backgroundColor: 'rgba(241, 245, 249, 0.9)',
-                  border: '1px solid rgba(226, 232, 240, 0.9)',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  backgroundColor:
+                    role === USER_ROLES.ADMIN
+                      ? '#FFF1F2'
+                      : role === USER_ROLES.RECRUITER
+                      ? '#F5F3FF'
+                      : '#EFF6FF',
+                  color:
+                    role === USER_ROLES.ADMIN
+                      ? '#E11D48'
+                      : role === USER_ROLES.RECRUITER
+                      ? '#7C3AED'
+                      : '#2563EB',
+                  border: `1.5px solid ${
+                    role === USER_ROLES.ADMIN
+                      ? '#FECDD3'
+                      : role === USER_ROLES.RECRUITER
+                      ? '#DDD6FE'
+                      : '#BFDBFE'
+                  }`,
                 }}
               >
-                {[
-                  { r: USER_ROLES.SEEKER, label: 'Seeker', path: '/seeker/dashboard' },
-                  { r: USER_ROLES.RECRUITER, label: 'Recruiter', path: '/recruiter/dashboard' },
-                  { r: USER_ROLES.ADMIN, label: 'Admin', path: '/admin/dashboard' },
-                ].map(({ r, label, path }) => (
-                  <button
-                    key={r}
-                    onClick={() => {
-                      switchRole(r);
-                      navigate(path);
-                    }}
-                    style={{
-                      padding: '4px 12px',
-                      borderRadius: '9999px',
-                      border: 'none',
-                      fontSize: '0.78rem',
-                      fontWeight: role === r ? 700 : 500,
-                      color: role === r ? '#FFFFFF' : '#64748B',
-                      backgroundColor: role === r ? '#2563EB' : 'transparent',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                    }}
-                  >
-                    {label}
-                  </button>
-                ))}
+                {role === USER_ROLES.ADMIN && <Shield size={13} />}
+                {role === USER_ROLES.RECRUITER && <Briefcase size={13} />}
+                {role === USER_ROLES.SEEKER && <Sparkles size={13} />}
+                <span>
+                  {role === USER_ROLES.ADMIN
+                    ? 'Administrator'
+                    : role === USER_ROLES.RECRUITER
+                    ? 'Recruiter'
+                    : 'Candidate'}
+                </span>
               </div>
 
               {/* Notification Bell */}
@@ -292,7 +310,7 @@ export const Navbar = () => {
 
               {/* User Avatar Circle */}
               <Link
-                to={role === USER_ROLES.SEEKER ? '/seeker/profile' : '/recruiter/profile'}
+                to={role === USER_ROLES.SEEKER ? '/seeker/profile' : (role === USER_ROLES.RECRUITER ? '/recruiter/profile' : '/admin/dashboard')}
                 style={{
                   display: 'flex',
                   alignItems: 'center',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { ShieldCheck, FileSearch, Hash, Layers } from 'lucide-react';
 
 const STEPS = [
@@ -31,9 +31,8 @@ export const ResumeCheckLoader = ({ onComplete }) => {
 
   return (
     <div
-      className="glass-panel"
       style={{
-        maxWidth: '520px',
+        maxWidth: '540px',
         margin: '40px auto',
         padding: '36px',
         textAlign: 'center',
@@ -41,29 +40,35 @@ export const ResumeCheckLoader = ({ onComplete }) => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '20px',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '24px',
+        border: '1.5px solid #CBD5E1',
+        boxShadow: '0 20px 45px -12px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(15, 23, 42, 0.04)',
       }}
     >
       <div
         style={{
-          width: '64px',
-          height: '64px',
+          width: '68px',
+          height: '68px',
           borderRadius: '50%',
-          background: 'rgba(99, 102, 241, 0.15)',
-          color: 'var(--accent-primary)',
+          background: '#EFF6FF',
+          color: '#2563EB',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: 'var(--shadow-glow)',
+          boxShadow: '0 4px 16px rgba(37, 99, 235, 0.2)',
           animation: 'pulseSlow 1.5s infinite',
         }}
       >
-        <ShieldCheck size={36} />
+        <ShieldCheck size={38} />
       </div>
 
       <div>
-        <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Verifying Resume Integrity</h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-          Strict local rule-based verification running on MongoDB & Node.js
+        <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+          Verifying Resume Integrity
+        </h3>
+        <p style={{ fontSize: '0.875rem', color: '#64748B', maxWidth: '400px', margin: '0 auto' }}>
+          Rule-based verification scanning text consistency and cryptographic checksum
         </p>
       </div>
 
@@ -80,21 +85,29 @@ export const ResumeCheckLoader = ({ onComplete }) => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                padding: '10px 14px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: isCurrent ? 'rgba(99, 102, 241, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                border: `1px solid ${isCurrent ? 'var(--border-hover)' : 'var(--border-subtle)'}`,
-                opacity: isDone || isCurrent ? 1 : 0.4,
-                transition: 'all var(--transition-fast)',
+                padding: '12px 16px',
+                borderRadius: '12px',
+                backgroundColor: isCurrent ? '#EFF6FF' : isDone ? '#F8FAFC' : '#FFFFFF',
+                border: `1.5px solid ${isCurrent ? '#93C5FD' : isDone ? '#E2E8F0' : '#F1F5F9'}`,
+                opacity: isDone || isCurrent ? 1 : 0.6,
+                transition: 'all 0.2s ease',
               }}
             >
-              <div style={{ color: isDone ? 'var(--accent-emerald)' : isCurrent ? 'var(--accent-primary)' : 'var(--text-muted)' }}>
+              <div style={{ color: isDone ? '#059669' : isCurrent ? '#2563EB' : '#94A3B8' }}>
                 <StepIcon size={18} />
               </div>
-              <span style={{ fontSize: '0.825rem', textAlign: 'left', flex: 1, color: isCurrent ? '#fff' : 'var(--text-secondary)' }}>
+              <span
+                style={{
+                  fontSize: '0.85rem',
+                  textAlign: 'left',
+                  flex: 1,
+                  fontWeight: isCurrent ? 600 : 500,
+                  color: isCurrent ? '#1E40AF' : isDone ? '#0F172A' : '#64748B',
+                }}
+              >
                 {step.label}
               </span>
-              {isDone && <span style={{ color: 'var(--accent-emerald)', fontSize: '0.75rem', fontWeight: 700 }}>✓ Done</span>}
+              {isDone && <span style={{ color: '#059669', fontSize: '0.78rem', fontWeight: 700 }}>✓ Done</span>}
             </div>
           );
         })}

@@ -10,6 +10,7 @@ import { jobApi, MOCK_JOBS } from '../api/jobApi';
 import { applicationApi } from '../api/applicationApi';
 import { profileApi, MOCK_PROFILE } from '../api/profileApi';
 import { useNotifications } from '../context/NotificationContext';
+import { useAuthContext } from '../context/AuthContext';
 import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 
@@ -17,12 +18,13 @@ export const JobDetailsPage = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
   const { addToast } = useNotifications();
+  const { isAuthenticated, user } = useAuthContext();
 
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
-  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [applying, setApplying] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ export const JobDetailsPage = () => {
   }, [jobId]);
 
   const handleToggleSave = async () => {
+    if (!isAuthenticated) { setShowLoginPrompt(true); return; }
     if (isSaved) {
       await profileApi.unsaveJob(jobId);
       setIsSaved(false);
@@ -49,12 +52,12 @@ export const JobDetailsPage = () => {
   };
 
   const handleApply = async () => {
+    if (!isAuthenticated) { setShowLoginPrompt(true); return; }
     setApplying(true);
     try {
-      await applicationApi.applyJob(jobId, {});
+      await applicationApi.applyJob(jobId, { userId: user?.id });
       setIsApplied(true);
-      setShowApplyModal(false);
-      addToast('Application submitted successfully! 🎉', 'success');
+      addToast('Application submitted successfully! \u{1F389}', 'success');
     } catch {
       addToast('Application failed. Please try again.', 'error');
     } finally {
@@ -65,55 +68,46 @@ export const JobDetailsPage = () => {
   const similarJobs = MOCK_JOBS.filter((j) => j.id !== jobId).slice(0, 3);
 
   if (loading) return <SeekerLayout><Loader size="lg" text="Loading job details..." /></SeekerLayout>;
-
   if (!job) return <SeekerLayout><p>Job not found.</p></SeekerLayout>;
 
   return (
     <SeekerLayout>
       <Breadcrumbs
         customCrumbs={[
-          { href: '/jobs', label: 'Browse Jobs' },
-          { href: `/jobs/${jobId}`, label: job.title },
+          { href: "/jobs", label: "Browse Jobs" },
+          { href: "/jobs/" + jobId, label: job.title },
         ]}
       />
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 320px',
-          gap: '24px',
-          alignItems: 'start',
-        }}
-      >
-        {/* Main Content */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "24px", alignItems: "start" }}>
         <JobDetailsCard
           job={job}
           isApplied={isApplied}
           isSaved={isSaved}
           onToggleSave={handleToggleSave}
-          onApply={() => setShowApplyModal(true)}
+          onApply={handleApply}
+          applying={applying}
         />
-
-        {/* Sidebar */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <CompanyMiniCard company={job.company} />
           <SimilarJobs jobs={similarJobs} />
         </div>
       </div>
-
-      {/* Apply Confirmation Modal */}
-      <Modal
-        isOpen={showApplyModal}
-        onClose={() => setShowApplyModal(false)}
-        title="Login to Apply"
-      >
-        <p style={{ marginBottom: '20px', color: 'var(--text-secondary)' }}>
-          Create your Career DNA account to apply for this opportunity and track your application.
-          {job.isDemo && <><br/><br/><strong>This is a demo opportunity, not a verified vacancy.</strong></>}
-        </p>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-          <Button variant="secondary" onClick={() => navigate(`/login?returnTo=/apply/${jobId}`)}>Login</Button>
-          <Button onClick={() => navigate(`/signup?returnTo=/apply/${jobId}`)}>Create Account</Button>
+      <Modal isOpen={showLoginPrompt} onClose={() => setShowLoginPrompt(false)} title="Sign in to Apply">
+        <div style={{ padding: "4px 0 8px" }}>
+          <p style={{ marginBottom: "8px", color: "var(--text-secondary)", lineHeight: 1.65 }}>
+            You need to be signed in to apply for <strong>{job.title}</strong> at <strong>{job.company}</strong>.
+          </p>
+          <p style={{ marginBottom: "20px", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+            Already have an account? Sign in below. New here? Create a free account in 30 seconds.
+          </p>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <Button onClick={() => { setShowLoginPrompt(false); navigate("/login", { state: { from: { pathname: "/jobs/" + jobId } } }); }}>
+              Sign In
+            </Button>
+            <Button variant="secondary" onClick={() => { setShowLoginPrompt(false); navigate("/signup", { state: { from: { pathname: "/jobs/" + jobId } } }); }}>
+              Create Account
+            </Button>
+          </div>
         </div>
       </Modal>
     </SeekerLayout>

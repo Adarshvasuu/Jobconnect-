@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ShieldCheck, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 import Button from '../common/Button';
 
@@ -15,39 +15,41 @@ export const VerificationResultCard = ({
 
   return (
     <div
-      className="glass-panel"
       style={{
-        maxWidth: '560px',
+        maxWidth: '580px',
         margin: '32px auto',
-        padding: '32px',
-        borderRadius: 'var(--radius-xl)',
+        padding: '36px',
+        borderRadius: '24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '20px',
-        border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.4)' : 'rgba(245, 158, 11, 0.4)'}`,
+        gap: '22px',
+        backgroundColor: '#FFFFFF',
+        border: `1.5px solid ${isVerified ? '#A7F3D0' : '#FDE68A'}`,
+        boxShadow: '0 20px 45px -12px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(15, 23, 42, 0.04)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: isVerified ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-              color: isVerified ? 'var(--accent-emerald)' : 'var(--accent-amber)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '14px',
+              backgroundColor: isVerified ? '#ECFDF5' : '#FFFBEB',
+              color: isVerified ? '#059669' : '#D97706',
+              border: `1px solid ${isVerified ? '#A7F3D0' : '#FDE68A'}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            {isVerified ? <ShieldCheck size={26} /> : <AlertTriangle size={26} />}
+            {isVerified ? <ShieldCheck size={28} /> : <AlertTriangle size={28} />}
           </div>
           <div>
-            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>
+            <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0F172A' }}>
               {isVerified ? 'Resume Integrity Verified' : 'Resume Review Flagged'}
             </h3>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.825rem', color: '#64748B' }}>
               Checked on {new Date(checkedAt).toLocaleDateString()}
             </span>
           </div>
@@ -56,43 +58,50 @@ export const VerificationResultCard = ({
         {/* Score Ring */}
         <div
           style={{
-            width: '56px',
-            height: '56px',
+            width: '60px',
+            height: '60px',
             borderRadius: '50%',
-            background: isVerified ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
+            background: isVerified ? '#ECFDF5' : '#FFFBEB',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.25rem',
+            fontSize: '1.3rem',
             fontWeight: 800,
-            color: isVerified ? 'var(--accent-emerald)' : 'var(--accent-amber)',
-            border: `2px solid ${isVerified ? 'var(--accent-emerald)' : 'var(--accent-amber)'}`,
+            color: isVerified ? '#059669' : '#D97706',
+            border: `2.5px solid ${isVerified ? '#059669' : '#D97706'}`,
           }}
         >
           {score}%
         </div>
       </div>
 
-      <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)', padding: '16px', borderRadius: 'var(--radius-md)' }}>
-        <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+      <div
+        style={{
+          backgroundColor: '#F8FAFC',
+          border: '1px solid #E2E8F0',
+          padding: '18px',
+          borderRadius: '14px',
+        }}
+      >
+        <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1E293B' }}>
           Rule-Based Consistency Insights:
         </span>
         {flags.length > 0 ? (
-          <ul style={{ marginTop: '8px', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <ul style={{ marginTop: '10px', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {flags.map((flag, idx) => (
-              <li key={idx} style={{ fontSize: '0.825rem', color: isVerified ? 'var(--text-secondary)' : 'var(--accent-amber)' }}>
+              <li key={idx} style={{ fontSize: '0.85rem', color: isVerified ? '#475569' : '#B45309', fontWeight: 500 }}>
                 {flag}
               </li>
             ))}
           </ul>
         ) : (
-          <div style={{ marginTop: '8px', fontSize: '0.825rem', color: 'var(--accent-emerald)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <CheckCircle size={15} /> All skills match extracted resume text with zero duplicate hash collisions.
+          <div style={{ marginTop: '8px', fontSize: '0.85rem', color: '#059669', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <CheckCircle size={16} /> All skills match extracted resume text with zero duplicate hash collisions.
           </div>
         )}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '6px' }}>
         <Button onClick={onContinue} icon={ArrowRight}>
           Continue to Dashboard
         </Button>

@@ -8,8 +8,8 @@ export const MOCK_APPLICATIONS = [
     company: 'Nexus Cloud Technologies',
     candidate: {
       id: 'cand-1',
-      name: 'Adarsh Sharma',
-      email: 'adarsh@example.com',
+      name: 'Gokul Sharma',
+      email: 'Gokul@example.com',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
       skills: ['React', 'Node.js', 'MongoDB', 'Express', 'TypeScript'],
       experience: '5.5 yrs',
@@ -71,22 +71,61 @@ export const MOCK_APPLICATIONS = [
   },
 ];
 
+// ---- Local application store (persists applied jobs across sessions) ----
+const LOCAL_KEY = 'jc_my_applications';
+
+function getLocalApps() {
+  try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; } catch { return []; }
+}
+function saveLocalApp(app) {
+  const apps = getLocalApps();
+  // Don't duplicate
+  if (!apps.find(a => a.jobId === app.jobId)) {
+    apps.unshift(app);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(apps));
+  }
+}
+
 export const applicationApi = {
   applyJob: async (jobId, data) => {
+    // Always persist locally so ApplicationsPage can show it
+    const { MOCK_JOBS } = await import('./jobApi.js');
+    const job = MOCK_JOBS.find(j => j.id === jobId || j._id === jobId);
+    const localApp = {
+      id: `app-${Date.now()}`,
+      jobId,
+      jobTitle: job?.title || 'Applied Position',
+      company: job?.company || 'Company',
+      location: job?.location || 'Remote',
+      salary: job?.salaryString || job?.salary?.min ? `$${job.salary.min?.toLocaleString()} - $${job.salary.max?.toLocaleString()}` : 'Competitive',
+      status: 'applied',
+      appliedAt: new Date().toISOString(),
+      statusHistory: [{ status: 'applied', date: new Date().toISOString(), note: 'Application submitted' }],
+      candidate: { id: data?.userId || 'me', name: 'You', email: '' },
+    };
+    saveLocalApp(localApp);
     try {
       const response = await axiosInstance.post(`/applications/apply/${jobId}`, data);
       return response.data;
     } catch {
-      return { success: true, message: 'Application submitted successfully (mock)!' };
+      return { success: true, message: 'Application submitted successfully!' };
     }
   },
 
   getMyApplications: async () => {
+    const localApps = getLocalApps();
     try {
       const response = await axiosInstance.get('/applications/my-applications');
-      return response.data;
+      const serverApps = response.data?.applications || [];
+      // Merge local apps on top, deduped by jobId
+      const merged = [...localApps];
+      serverApps.forEach(sa => { if (!merged.find(la => la.jobId === sa.jobId)) merged.push(sa); });
+      return { applications: merged.length > 0 ? merged : MOCK_APPLICATIONS };
     } catch {
-      return { applications: MOCK_APPLICATIONS };
+      // Backend offline: show local applied + mock data
+      const combined = [...localApps];
+      MOCK_APPLICATIONS.forEach(ma => { if (!combined.find(la => la.jobId === ma.jobId)) combined.push(ma); });
+      return { applications: combined };
     }
   },
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect } from 'react';
 import { STORAGE_KEYS, USER_ROLES } from '../utils/constants';
 import authApi from '../api/authApi';
 
@@ -6,16 +6,15 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.USER);
-    return saved ? JSON.parse(saved) : {
-      id: 'demo-user-1',
-      name: 'Adarsh Sharma',
-      email: 'adarsh@example.com',
-      role: USER_ROLES.SEEKER,
-    };
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.USER);
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEYS.TOKEN) || 'mock-token-session');
+  const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEYS.TOKEN) || null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -66,32 +65,21 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setUser(null);
       setToken(null);
-      localStorage.clear();
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ROLE);
     }
-  };
-
-  // Switch role in development to inspect Seeker, Recruiter, and Admin portals instantly
-  const switchRole = (newRole) => {
-    setUser((prev) => {
-      const updated = {
-        ...prev,
-        role: newRole,
-        name: newRole === USER_ROLES.ADMIN ? 'Admin User' : (newRole === USER_ROLES.RECRUITER ? 'Tech Recruiter' : 'Adarsh Sharma'),
-      };
-      return updated;
-    });
   };
 
   const value = {
     user,
     token,
-    role: user?.role || USER_ROLES.SEEKER,
+    role: user?.role || null,
     isAuthenticated: Boolean(user && token),
     loading,
     login,
     signup,
     logout,
-    switchRole,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

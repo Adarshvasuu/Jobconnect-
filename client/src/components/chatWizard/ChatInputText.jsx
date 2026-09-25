@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Send } from 'lucide-react';
 
 export const ChatInputText = ({ onSubmit, placeholder = 'Type your answer...', type = 'text', disabled = false }) => {
@@ -19,11 +19,11 @@ export const ChatInputText = ({ onSubmit, placeholder = 'Type your answer...', t
         alignItems: 'center',
         gap: '10px',
         width: '100%',
-        backgroundColor: 'var(--bg-tertiary)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '6px 8px 6px 16px',
-        boxShadow: 'var(--shadow-sm)',
+        backgroundColor: '#FFFFFF',
+        border: '1.5px solid #CBD5E1',
+        borderRadius: '16px',
+        padding: '8px 10px 8px 18px',
+        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.06)',
       }}
     >
       <input
@@ -37,8 +37,9 @@ export const ChatInputText = ({ onSubmit, placeholder = 'Type your answer...', t
           flex: 1,
           background: 'transparent',
           border: 'none',
-          color: 'var(--text-primary)',
-          fontSize: '0.95rem',
+          color: '#0F172A',
+          fontSize: '0.975rem',
+          fontWeight: 500,
           outline: 'none',
           fontFamily: 'var(--font-main)',
         }}
@@ -47,20 +48,21 @@ export const ChatInputText = ({ onSubmit, placeholder = 'Type your answer...', t
         type="submit"
         disabled={!value.trim() || disabled}
         style={{
-          width: '38px',
-          height: '38px',
-          borderRadius: 'var(--radius-md)',
-          background: value.trim() ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.05)',
-          color: value.trim() ? '#ffffff' : 'var(--text-muted)',
+          width: '42px',
+          height: '42px',
+          borderRadius: '12px',
+          background: value.trim() ? 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' : '#E2E8F0',
+          color: value.trim() ? '#FFFFFF' : '#94A3B8',
           border: 'none',
           cursor: value.trim() ? 'pointer' : 'not-allowed',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'all var(--transition-fast)',
+          boxShadow: value.trim() ? '0 4px 12px rgba(37, 99, 235, 0.25)' : 'none',
+          transition: 'all 0.15s ease',
         }}
       >
-        <Send size={16} />
+        <Send size={18} />
       </button>
     </form>
   );

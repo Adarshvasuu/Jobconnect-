@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChatWizard from '../components/chatWizard/ChatWizard';
 import ResumeCheckLoader from '../components/verification/ResumeCheckLoader';
@@ -7,6 +7,7 @@ import seekerConfig from '../components/chatWizard/wizardConfigs/seekerOnboardin
 import profileApi from '../api/profileApi';
 import { useNotifications } from '../context/NotificationContext';
 import Navbar from '../components/common/Navbar';
+import { Sparkles } from 'lucide-react';
 
 export const SeekerOnboardingPage = () => {
   const navigate = useNavigate();
@@ -54,17 +55,34 @@ export const SeekerOnboardingPage = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 50%, #FFFFFF 100%)' }}>
       <Navbar />
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px' }}>
+      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px 80px' }}>
         {/* Page Header */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '2rem', marginBottom: '10px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              backgroundColor: '#EFF6FF',
+              border: '1px solid #BFDBFE',
+              color: '#1D4ED8',
+              fontSize: '0.825rem',
+              fontWeight: 700,
+              marginBottom: '14px',
+            }}
+          >
+            <Sparkles size={14} /> Step-by-Step AI Setup
+          </div>
+          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '10px', letterSpacing: '-0.02em' }}>
             Let's Build Your <span className="text-gradient">Talent Profile</span>
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
-            Our conversational wizard collects your details in a natural, friendly chat format.
+          <p style={{ color: '#475569', fontSize: '1.05rem', maxWidth: '580px', margin: '0 auto' }}>
+            Answer a few quick questions in our interactive chat to personalize your job feed and get matched with top opportunities.
           </p>
         </div>
 

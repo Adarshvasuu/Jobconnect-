@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
 import { Mail, Lock, User, Briefcase, Users, Eye, EyeOff, UserPlus } from 'lucide-react';
 import InputField from '../components/common/InputField';
 import Button from '../components/common/Button';
 import { useAuth } from '../hooks/useAuth';
+import { useAuthContext } from '../context/AuthContext';
 import { validateSignupForm } from '../utils/validators';
 import { USER_ROLES } from '../utils/constants';
 
@@ -12,6 +13,14 @@ export const SignupPage = () => {
   const [searchParams] = useSearchParams();
   const preselectedRole = searchParams.get('role') || USER_ROLES.SEEKER;
   const { signup, loading } = useAuth();
+  const { isAuthenticated, user: authedUser } = useAuthContext();
+
+  // -- LOOP FIX: Already signed in? Go to dashboard immediately --
+  if (isAuthenticated && authedUser) {
+    if (authedUser.role === 'admin') return <Navigate to="/admin/dashboard" replace />;
+    if (authedUser.role === 'recruiter') return <Navigate to="/recruiter/dashboard" replace />;
+    return <Navigate to="/seeker/dashboard" replace />;
+  }
 
   const [formData, setFormData] = useState({
     name: '',
@@ -176,7 +185,7 @@ export const SignupPage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="e.g. Adarsh Sharma"
+              placeholder="e.g. Gokul Sharma"
               icon={User}
               error={errors.name}
               required

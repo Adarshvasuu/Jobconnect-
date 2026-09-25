@@ -34,7 +34,7 @@ export const MOCK_MESSAGES = {
     {
       id: 'msg-1',
       senderId: 'recruiter-1',
-      text: 'Hi Adarsh, your experience with MongoDB Aggregations and React looks very strong.',
+      text: 'Hi Gokul, your experience with MongoDB Aggregations and React looks very strong.',
       createdAt: '2026-09-24T09:10:00Z',
     },
     {

@@ -1,10 +1,10 @@
-import axiosInstance from './axiosInstance';
+﻿import axiosInstance from './axiosInstance';
 
 export const MOCK_ADMIN_USERS = [
-  { id: 'u1', name: 'Adarsh Sharma', email: 'adarsh@example.com', role: 'seeker', isActive: true, createdAt: '2026-09-01' },
-  { id: 'u2', name: 'Elena Rostova', email: 'elena@example.com', role: 'seeker', isActive: true, createdAt: '2026-09-05' },
-  { id: 'u3', name: 'Nexus Cloud HR', email: 'recruiter@nexus.com', role: 'recruiter', isActive: true, createdAt: '2026-08-20' },
-  { id: 'u4', name: 'Spam Bot 900', email: 'spammer@fake.io', role: 'seeker', isActive: false, createdAt: '2026-09-22' },
+  { id: 'u1', _id: 'u1', name: 'Gokul Sharma', email: 'Gokul@example.com', role: 'seeker', isActive: true, createdAt: '2026-09-01T12:00:00Z' },
+  { id: 'u2', _id: 'u2', name: 'Elena Rostova', email: 'elena@example.com', role: 'seeker', isActive: true, createdAt: '2026-09-05T10:00:00Z' },
+  { id: 'u3', _id: 'u3', name: 'Nexus Cloud HR', email: 'recruiter@nexus.com', role: 'recruiter', isActive: true, createdAt: '2026-08-20T08:00:00Z' },
+  { id: 'u4', _id: 'u4', name: 'Platform Administrator', email: 'admin@jobconnect.io', role: 'admin', isActive: true, createdAt: '2026-08-15T09:00:00Z' },
 ];
 
 export const MOCK_ANALYTICS = {
@@ -53,13 +53,26 @@ export const MOCK_FLAGGED = [
   },
 ];
 
+// Helper to trigger browser download of CSV string
+const downloadCSV = (csvContent, fileName) => {
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', fileName);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
 export const adminApi = {
-  getUsers: async () => {
+  getUsers: async (params = {}) => {
     try {
-      const res = await axiosInstance.get('/admin/users');
-      return res.data;
+      const res = await axiosInstance.get('/users', { params });
+      return { users: res.data.users || [], total: res.data.count || res.data.total || 0 };
     } catch {
-      return { users: MOCK_ADMIN_USERS };
+      return { users: MOCK_ADMIN_USERS, total: MOCK_ADMIN_USERS.length };
     }
   },
 
@@ -68,9 +81,58 @@ export const adminApi = {
       const res = await axiosInstance.patch(`/admin/users/${userId}/status`, { isActive });
       return res.data;
     } catch {
-      const user = MOCK_ADMIN_USERS.find(u => u.id === userId);
+      const user = MOCK_ADMIN_USERS.find(u => u.id === userId || u._id === userId);
       if (user) user.isActive = isActive;
       return { success: true, user };
+    }
+  },
+
+  deleteUser: async (userId) => {
+    try {
+      const res = await axiosInstance.delete(`/user/delete/${userId}`);
+      return res.data;
+    } catch {
+      return { success: true, userId };
+    }
+  },
+
+  getJobs: async (params = {}) => {
+    try {
+      const res = await axiosInstance.get('/jobs', { params });
+      return {
+        jobs: res.data.jobs || [],
+        total: res.data.total || (res.data.jobs ? res.data.jobs.length : 0),
+        count: res.data.count || 0
+      };
+    } catch {
+      return { jobs: [], total: 0 };
+    }
+  },
+
+  createJob: async (jobData) => {
+    try {
+      const res = await axiosInstance.post('/jobs', jobData);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  updateJob: async (id, jobData) => {
+    try {
+      const res = await axiosInstance.put(`/jobs/${id}`, jobData);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  deleteJob: async (id) => {
+    try {
+      const res = await axiosInstance.delete(`/jobs/${id}`);
+      return res.data;
+    } catch (err) {
+      throw err;
     }
   },
 
@@ -99,15 +161,25 @@ export const adminApi = {
 
   getCategories: async () => {
     try {
-      const res = await axiosInstance.get('/categories');
-      return res.data;
+      const res = await axiosInstance.get('/type/jobs');
+      const cats = res.data.categories || res.data.jobT || [];
+      return {
+        categories: cats.map(c => ({
+          id: c._id || c.id,
+          _id: c._id || c.id,
+          name: c.jobTypeName || c.name,
+          jobTypeName: c.jobTypeName || c.name,
+          description: c.description || '',
+          createdAt: c.createdAt
+        }))
+      };
     } catch {
       return {
         categories: [
-          { id: 'cat-1', name: 'Engineering', description: 'Software, QA, DevOps, and Architecture' },
-          { id: 'cat-2', name: 'Design & Dev', description: 'UI/UX, Product Design, Interaction' },
-          { id: 'cat-3', name: 'Product Management', description: 'Technical PM, Scrum Masters' },
-          { id: 'cat-4', name: 'Data & AI/ML', description: 'Data Engineering, Pipeline Specialists' },
+          { id: 'cat-1', name: 'Technology', description: 'Software, QA, DevOps, and Architecture' },
+          { id: 'cat-2', name: 'Design & Creative', description: 'UI/UX, Product Design, Interaction' },
+          { id: 'cat-3', name: 'Finance & Banking', description: 'Investment analysis, accounting, and fintech' },
+          { id: 'cat-4', name: 'Data Science & AI', description: 'Data Engineering, Pipeline Specialists, ML' },
         ]
       };
     }
@@ -115,16 +187,26 @@ export const adminApi = {
 
   createCategory: async (category) => {
     try {
-      const res = await axiosInstance.post('/categories', category);
-      return res.data;
-    } catch {
-      return { success: true, category: { id: 'cat-' + Date.now(), ...category } };
+      const res = await axiosInstance.post('/type/create', {
+        jobTypeName: category.name || category.jobTypeName,
+        description: category.description || ''
+      });
+      return {
+        success: true,
+        category: {
+          id: res.data.jobT?._id || res.data.category?.id || 'cat-' + Date.now(),
+          name: category.name || category.jobTypeName,
+          description: category.description
+        }
+      };
+    } catch (err) {
+      throw err;
     }
   },
 
   deleteCategory: async (categoryId) => {
     try {
-      const res = await axiosInstance.delete(`/categories/${categoryId}`);
+      const res = await axiosInstance.delete(`/type/delete/${categoryId}`);
       return res.data;
     } catch {
       return { success: true, categoryId };
@@ -148,6 +230,46 @@ export const adminApi = {
       return { flagged: MOCK_FLAGGED };
     }
   },
+
+  // Export Jobs to CSV file
+  downloadJobsCSV: (jobs) => {
+    if (!jobs || jobs.length === 0) return;
+    const headers = ['Job ID', 'Title', 'Company', 'Category', 'Salary', 'Location', 'Type', 'Available', 'Status', 'Created At'];
+    const rows = jobs.map(j => {
+      const id = j._id || j.id || '';
+      const title = `"${(j.title || '').replace(/"/g, '""')}"`;
+      const company = `"${(j.company || '').replace(/"/g, '""')}"`;
+      const category = `"${(j.category || j.jobType?.jobTypeName || '').replace(/"/g, '""')}"`;
+      const salary = `"${(j.salaryString || (typeof j.salary === 'object' ? `$${j.salary.min}-$${j.salary.max}` : j.salary) || '').replace(/"/g, '""')}"`;
+      const location = `"${(j.location || '').replace(/"/g, '""')}"`;
+      const type = `"${(j.type || '').replace(/"/g, '""')}"`;
+      const available = j.available !== false ? 'Yes' : 'No';
+      const status = j.status || 'active';
+      const createdAt = j.createdAt ? new Date(j.createdAt).toISOString() : (j.postedAt || '');
+      return [id, title, company, category, salary, location, type, available, status, createdAt].join(',');
+    });
+
+    const csv = [headers.join(','), ...rows].join('\n');
+    downloadCSV(csv, `jobconnect_jobs_export_${new Date().toISOString().split('T')[0]}.csv`);
+  },
+
+  // Export Users to CSV file
+  downloadUsersCSV: (users) => {
+    if (!users || users.length === 0) return;
+    const headers = ['User ID', 'Name', 'Email', 'Role', 'Status', 'Registered At'];
+    const rows = users.map(u => {
+      const id = u._id || u.id || '';
+      const name = `"${(u.name || `${u.firstName || ''} ${u.lastName || ''}`).trim().replace(/"/g, '""')}"`;
+      const email = `"${(u.email || '').replace(/"/g, '""')}"`;
+      const role = u.role || (u.roleNum === 1 ? 'admin' : 'seeker');
+      const status = u.isActive !== false ? 'Active' : 'Suspended';
+      const createdAt = u.createdAt ? new Date(u.createdAt).toISOString() : '';
+      return [id, name, email, role, status, createdAt].join(',');
+    });
+
+    const csv = [headers.join(','), ...rows].join('\n');
+    downloadCSV(csv, `jobconnect_users_export_${new Date().toISOString().split('T')[0]}.csv`);
+  }
 };
 
 export default adminApi;

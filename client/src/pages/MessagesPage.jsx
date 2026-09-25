@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import SeekerLayout from '../components/layout/SeekerLayout';
 import ConversationList from '../components/messaging/ConversationList';
 import MessageThread from '../components/messaging/MessageThread';
 import { messageApi, MOCK_CONVERSATIONS, MOCK_MESSAGES } from '../api/messageApi';
-import { useAuth } from '../hooks/useAuth';
-import { useRole } from '../context/RoleContext';
+import { useAuthContext } from '../context/AuthContext';
 import RecruiterLayout from '../components/layout/RecruiterLayout';
 
 export const MessagesPage = () => {
-  const { user } = useAuth();
-  const { isRecruiter } = useRole();
+  const { user } = useAuthContext();
+  const isRecruiter = user?.role === 'recruiter';
   const [conversations, setConversations] = useState(MOCK_CONVERSATIONS);
   const [activeConvId, setActiveConvId] = useState(MOCK_CONVERSATIONS[0]?.id || null);
   const [messages, setMessages] = useState(MOCK_MESSAGES[MOCK_CONVERSATIONS[0]?.id] || []);
@@ -47,24 +46,25 @@ export const MessagesPage = () => {
 
   return (
     <Layout>
-      <div style={{ marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '4px' }}>
+      <div style={{ marginBottom: '24px' }}>
+        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>
           Direct <span className="text-gradient">Messages</span>
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-          Chat directly with {isRecruiter ? 'candidates' : 'hiring teams'} about opportunities.
+        <p style={{ color: '#475569', fontSize: '1rem', margin: 0 }}>
+          Real-time conversations with {isRecruiter ? 'candidates and applicants' : 'employers and hiring managers'}.
         </p>
       </div>
 
       <div
-        className="glass-panel"
         style={{
           display: 'grid',
-          gridTemplateColumns: '320px 1fr',
-          height: '620px',
+          gridTemplateColumns: '340px 1fr',
+          height: '660px',
           overflow: 'hidden',
-          borderRadius: 'var(--radius-xl)',
-          border: '1px solid var(--border-hover)',
+          borderRadius: '24px',
+          border: '1.5px solid #E2E8F0',
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0 20px 45px -12px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.03)',
         }}
       >
         <ConversationList
@@ -75,7 +75,7 @@ export const MessagesPage = () => {
         <MessageThread
           conversation={activeConversation}
           messages={messages}
-          currentUserId={user?.id || 'mock-user-1'}
+          currentUserId={user?.id || user?._id || 'mock-user-1'}
           onSendMessage={handleSendMessage}
         />
       </div>

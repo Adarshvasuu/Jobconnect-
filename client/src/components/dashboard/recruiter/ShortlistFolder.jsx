@@ -43,7 +43,7 @@ export const ShortlistFolder = ({ candidates = [] }) => {
           }}
         >
           <div>
-            <div style={{ fontSize: '0.875rem', fontWeight: 600 }}>Adarsh Sharma</div>
+            <div style={{ fontSize: '0.875rem', fontWeight: 600 }}>Gokul Sharma</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>MERN Stack • 94% Match</div>
           </div>
           <Link to="/recruiter/messages" style={{ color: 'var(--accent-primary)', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem' }}>

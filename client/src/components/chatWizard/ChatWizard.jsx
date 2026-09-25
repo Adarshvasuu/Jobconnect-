@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import ChatBubble from './ChatBubble';
 import ChatInputText from './ChatInputText';
 import ChatInputTags from './ChatInputTags';
 import ChatInputFile from './ChatInputFile';
 import ChatProgressBar from './ChatProgressBar';
-import { RotateCcw, CheckCircle2 } from 'lucide-react';
+import { RotateCcw, CheckCircle2, Bot, Sparkles } from 'lucide-react';
 import Button from '../common/Button';
 
 export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Setup' }) => {
@@ -75,7 +75,7 @@ export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Se
           ...prev,
           {
             sender: 'bot',
-            message: "🎉 You're all set! Your profile has been configured and saved.",
+            message: "You're all set! Your profile configuration is complete and saved.",
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           },
         ]);
@@ -101,22 +101,44 @@ export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Se
 
   return (
     <div
-      className="glass-panel"
       style={{
-        maxWidth: '720px',
+        maxWidth: '740px',
         margin: '0 auto',
-        padding: '28px',
-        borderRadius: 'var(--radius-xl)',
+        padding: '30px',
+        borderRadius: '24px',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '560px',
-        border: '1px solid var(--border-hover)',
-        boxShadow: 'var(--shadow-lg), var(--shadow-glow)',
+        minHeight: '580px',
+        backgroundColor: '#FFFFFF',
+        border: '1.5px solid #E2E8F0',
+        boxShadow: '0 20px 45px -12px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(15, 23, 42, 0.04)',
       }}
     >
       {/* Header and Progress */}
-      <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '1.4rem', margin: 0 }}>{title}</h2>
+      <div style={{ marginBottom: '18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#FFFFFF',
+            }}
+          >
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 700, margin: 0, color: '#0F172A' }}>{title}</h2>
+            <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 500 }}>
+              AI Guided Experience
+            </span>
+          </div>
+        </div>
+
         {currentStep > 0 && !isCompleted && (
           <Button variant="ghost" size="sm" onClick={handleUndo} icon={RotateCcw}>
             Undo
@@ -126,15 +148,20 @@ export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Se
 
       <ChatProgressBar currentStep={currentStep} totalSteps={config.length} />
 
-      {/* Message Stream */}
+      {/* Message Stream with dedicated soft slate contrast background */}
       <div
         style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '12px 4px',
+          padding: '18px 16px',
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '320px',
+          minHeight: '340px',
+          maxHeight: '460px',
+          backgroundColor: '#F1F5F9',
+          borderRadius: '18px',
+          border: '1px solid #E2E8F0',
+          boxShadow: 'inset 0 2px 4px rgba(15, 23, 42, 0.03)',
         }}
       >
         {messages.map((msg, index) => (
@@ -147,8 +174,32 @@ export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Se
         ))}
 
         {isBotTyping && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 14px' }}>
-            <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)' }}>Assistant is typing...</span>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 16px',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '18px',
+              border: '1px solid #CBD5E1',
+              boxShadow: '0 2px 6px rgba(15, 23, 42, 0.06)',
+              width: 'fit-content',
+              margin: '8px 0',
+            }}
+          >
+            <div
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: '#2563EB',
+                animation: 'pulseSlow 1s infinite',
+              }}
+            />
+            <span style={{ fontSize: '0.85rem', color: '#475569', fontWeight: 600 }}>
+              Assistant is typing...
+            </span>
           </div>
         )}
 
@@ -156,7 +207,7 @@ export const ChatWizard = ({ config = [], onComplete, title = 'Conversational Se
       </div>
 
       {/* Interactive Input Section */}
-      <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
+      <div style={{ marginTop: '18px', paddingTop: '16px', borderTop: '1px solid #E2E8F0' }}>
         {!isCompleted && activeQuestion && !isBotTyping && (
           <>
             {activeQuestion.type === 'text' && (

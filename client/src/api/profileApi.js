@@ -1,8 +1,8 @@
 import axiosInstance from './axiosInstance';
 
 export const MOCK_PROFILE = {
-  name: 'Adarsh Sharma',
-  email: 'adarsh@example.com',
+  name: 'Gokul Sharma',
+  email: 'Gokul@example.com',
   title: 'Full Stack MERN Developer',
   bio: 'Passionate software engineer building robust reactive interfaces, scalable APIs, and MongoDB aggregation architectures.',
   location: 'Bangalore, India',
@@ -10,7 +10,7 @@ export const MOCK_PROFILE = {
   skills: ['React', 'Node.js', 'MongoDB', 'Express', 'TypeScript', 'Docker', 'GraphQL'],
   completionPercentage: 85,
   resume: {
-    fileName: 'Adarsh_Sharma_Resume_2026.pdf',
+    fileName: 'Gokul_Sharma_Resume_2026.pdf',
     uploadedAt: '2026-09-10T08:00:00Z',
     fileSize: '1.2 MB',
   },

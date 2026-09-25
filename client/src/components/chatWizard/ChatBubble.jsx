@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Bot, User, Sparkles } from 'lucide-react';
 
 export const ChatBubble = ({ sender = 'bot', message, timestamp }) => {
@@ -11,49 +11,74 @@ export const ChatBubble = ({ sender = 'bot', message, timestamp }) => {
         alignItems: 'flex-start',
         gap: '12px',
         justifyContent: isBot ? 'flex-start' : 'flex-end',
-        margin: '12px 0',
+        margin: '14px 0',
         animation: 'fadeIn 0.25s ease-out',
       }}
     >
       {isBot && (
         <div
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            background: 'var(--gradient-brand)',
+            width: '38px',
+            height: '38px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
+            color: '#FFFFFF',
             flexShrink: 0,
-            boxShadow: 'var(--shadow-glow)',
+            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.25)',
           }}
         >
-          <Bot size={18} />
+          <Bot size={20} />
         </div>
       )}
 
       <div
         style={{
-          maxWidth: '75%',
-          padding: '12px 18px',
-          borderRadius: isBot ? '4px 18px 18px 18px' : '18px 4px 18px 18px',
-          backgroundColor: isBot ? 'var(--bg-tertiary)' : 'var(--accent-primary)',
-          color: '#ffffff',
-          fontSize: '0.925rem',
-          lineHeight: 1.5,
-          border: isBot ? '1px solid var(--border-subtle)' : 'none',
-          boxShadow: isBot ? 'var(--shadow-sm)' : '0 4px 14px rgba(99, 102, 241, 0.3)',
+          maxWidth: '78%',
+          padding: '14px 18px',
+          borderRadius: isBot ? '4px 20px 20px 20px' : '20px 4px 20px 20px',
+          backgroundColor: isBot ? '#FFFFFF' : '#2563EB',
+          backgroundImage: isBot ? 'none' : 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+          color: isBot ? '#0F172A' : '#FFFFFF',
+          fontSize: '0.95rem',
+          fontWeight: 500,
+          lineHeight: 1.55,
+          border: isBot ? '1.5px solid #CBD5E1' : '1px solid #1D4ED8',
+          boxShadow: isBot
+            ? '0 3px 10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)'
+            : '0 4px 14px rgba(37, 99, 235, 0.3)',
         }}
       >
-        <div>{message}</div>
+        {isBot && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.725rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: '#2563EB',
+              marginBottom: '6px',
+            }}
+          >
+            <Sparkles size={13} />
+            JobConnect AI
+          </div>
+        )}
+
+        <div style={{ wordBreak: 'break-word' }}>{message}</div>
+
         {timestamp && (
           <div
             style={{
-              fontSize: '0.7rem',
-              color: isBot ? 'var(--text-muted)' : 'rgba(255, 255, 255, 0.7)',
-              marginTop: '4px',
+              fontSize: '0.72rem',
+              fontWeight: 500,
+              color: isBot ? '#64748B' : 'rgba(255, 255, 255, 0.85)',
+              marginTop: '6px',
               textAlign: isBot ? 'left' : 'right',
             }}
           >
@@ -65,19 +90,19 @@ export const ChatBubble = ({ sender = 'bot', message, timestamp }) => {
       {!isBot && (
         <div
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            background: 'var(--bg-tertiary)',
-            border: '1px solid var(--border-hover)',
+            width: '38px',
+            height: '38px',
+            borderRadius: '12px',
+            background: '#334155',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--text-primary)',
+            color: '#FFFFFF',
             flexShrink: 0,
+            boxShadow: '0 4px 10px rgba(15, 23, 42, 0.15)',
           }}
         >
-          <User size={18} />
+          <User size={20} />
         </div>
       )}
     </div>

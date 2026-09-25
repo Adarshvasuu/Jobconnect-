@@ -3,7 +3,7 @@
     "id": "name",
     "bot": "Hey there! 👋 Welcome to JobConnect. What should we call you?",
     "type": "text",
-    "placeholder": "e.g. Adarsh Sharma",
+    "placeholder": "e.g. Gokul Sharma",
     "required": true
   },
   {

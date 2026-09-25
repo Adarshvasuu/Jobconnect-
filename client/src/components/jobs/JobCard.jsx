@@ -140,7 +140,23 @@ export const JobCard = ({ job, isSaved = false, onToggleSave, onApply }) => {
           >
             Details <ChevronRight size={14} />
           </Link>
-          <button onClick={() => onApply ? onApply(job) : window.location.assign(`/login?returnTo=/apply/${job.id}`)} style={{ border: 0, borderRadius: 9, padding: '8px 12px', background: '#2563eb', color: 'white', fontWeight: 700, cursor: 'pointer' }}>Apply Now</button>
+          {/* Apply Now: if onApply prop provided use it, otherwise navigate to job detail
+                 where auth check + apply modal are handled properly */}
+          <Link
+            to={`/jobs/${job.id}`}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '4px',
+              padding: '8px 14px', borderRadius: '9px',
+              background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+              color: '#fff', fontWeight: 700, fontSize: '0.85rem',
+              textDecoration: 'none', cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              if (onApply) { e.preventDefault(); onApply(job); }
+            }}
+          >
+            Apply Now
+          </Link>
         </div>
       </div>
     </div>
